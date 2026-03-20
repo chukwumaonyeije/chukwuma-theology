@@ -125,3 +125,21 @@ h1 {
   font-style: normal;
   color: var(--text-muted);
 }
+
+/* ── Per-post RSS link (for Substack import) ─────── */
+.post-rss-link {
+  margin: 2rem auto;
+  padding: 1rem 1.25rem;
+  background: #f5f0e8;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  word-break: break-all;
+}
+
+.post-rss-link a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
