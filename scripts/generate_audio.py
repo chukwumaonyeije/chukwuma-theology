@@ -1,12 +1,16 @@
 """
-OpenAI TTS Audio Generation Script — Chukwuma Theology
-=======================================================
-Reads each MDX post, strips markdown, calls OpenAI TTS API,
-saves MP3 to public/audio/{slug}.mp3, and updates post frontmatter
-with audioUrl field.
+Audio Generation Script — Chukwuma Theology
+=============================================
+Reads each MDX post, strips markdown, generates TTS audio, saves MP3
+to public/audio/{slug}.mp3, and updates post frontmatter with audioUrl.
+
+Provider is controlled by the AUDIO_PROVIDER env var:
+  openai       — OpenAI tts-1, onyx voice (default)
+  elevenlabs   — ElevenLabs, set ELEVENLABS_VOICE_ID to switch voice
+  custom       — reserved for own voice clone (ElevenLabs cloned voice)
 
 Setup:
-  pip install openai python-frontmatter python-dotenv
+  pip install openai elevenlabs python-frontmatter python-dotenv
 
 Usage:
   python scripts/generate_audio.py          # all posts
@@ -14,6 +18,9 @@ Usage:
 
 Environment variables (.env in project root):
   OPENAI_API_KEY=sk-...
+  ELEVENLABS_API_KEY=...
+  ELEVENLABS_VOICE_ID=...         # default: Daniel (ZMK5OD2jmsdse3EKE4W5)
+  AUDIO_PROVIDER=openai           # openai | elevenlabs | custom
 """
 
 import os
@@ -28,17 +35,26 @@ try:
 except ImportError:
     pass
 
-API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_API_KEY      = os.getenv('OPENAI_API_KEY')
+ELEVENLABS_API_KEY  = os.getenv('ELEVENLABS_API_KEY')
+ELEVENLABS_VOICE_ID = os.getenv('ELEVENLABS_VOICE_ID', 'ZMK5OD2jmsdse3EKE4W5')  # Daniel
+AUDIO_PROVIDER      = os.getenv('AUDIO_PROVIDER', 'openai').lower()
 
 POSTS_DIR        = Path(__file__).parent.parent / 'src' / 'content' / 'posts'
 AUDIO_DIR        = Path(__file__).parent.parent / 'public' / 'audio'
 AUDIO_URL_PREFIX = '/chukwuma-theology/audio'
 
-VOICE      = 'onyx'    # deep, professional male voice
-MODEL      = 'tts-1'   # tts-1-hd for higher quality (2x cost)
-CHUNK_SIZE = 4096      # OpenAI TTS limit per request
-DELAY_SEC  = 1         # pause between API calls
+# OpenAI settings
+OPENAI_VOICE = 'onyx'
+OPENAI_MODEL = 'tts-1'
 
+CHUNK_SIZE = 4096  # max chars per TTS request
+DELAY_SEC  = 1     # pause between API calls
+
+
+# ---------------------------------------------------------------------------
+# Text processing
+# ---------------------------------------------------------------------------
 
 def strip_markdown(text: str) -> str:
     """Remove MDX/markdown syntax to get clean prose for TTS."""
@@ -78,17 +94,45 @@ def chunk_text(text: str, size: int) -> list[str]:
     return chunks
 
 
-def tts_chunk(text: str) -> bytes:
-    """Call OpenAI TTS for a single chunk. Returns MP3 bytes."""
+# ---------------------------------------------------------------------------
+# TTS providers
+# ---------------------------------------------------------------------------
+
+def tts_openai(text: str) -> bytes:
+    """OpenAI TTS — tts-1, onyx voice."""
     from openai import OpenAI
-    client = OpenAI(api_key=API_KEY)
+    client = OpenAI(api_key=OPENAI_API_KEY)
     response = client.audio.speech.create(
-        model=MODEL,
-        voice=VOICE,
+        model=OPENAI_MODEL,
+        voice=OPENAI_VOICE,
         input=text,
     )
     return response.content
 
+
+def tts_elevenlabs(text: str) -> bytes:
+    """ElevenLabs TTS — uses ELEVENLABS_VOICE_ID."""
+    from elevenlabs.client import ElevenLabs
+    client = ElevenLabs(api_key=ELEVENLABS_API_KEY)
+    audio = client.text_to_speech.convert(
+        voice_id=ELEVENLABS_VOICE_ID,
+        text=text,
+        model_id='eleven_multilingual_v2',
+        output_format='mp3_44100_128',
+    )
+    return b''.join(audio)
+
+
+def tts_chunk(text: str) -> bytes:
+    """Dispatch to the active provider."""
+    if AUDIO_PROVIDER == 'elevenlabs' or AUDIO_PROVIDER == 'custom':
+        return tts_elevenlabs(text)
+    return tts_openai(text)
+
+
+# ---------------------------------------------------------------------------
+# Frontmatter
+# ---------------------------------------------------------------------------
 
 def write_audio_url(post_path: Path, slug: str) -> None:
     """Add audioUrl to frontmatter using direct text manipulation."""
@@ -99,6 +143,10 @@ def write_audio_url(post_path: Path, slug: str) -> None:
         text = text.replace('---\n', f'---\n{audio_line}', 1)
         post_path.write_text(text, encoding='utf-8')
 
+
+# ---------------------------------------------------------------------------
+# Per-post processing
+# ---------------------------------------------------------------------------
 
 def process_post(post_path: Path) -> bool:
     """Generate audio for a single post. Returns True if processed."""
@@ -115,11 +163,10 @@ def process_post(post_path: Path) -> bool:
         print(f'  [skip] {slug} — draft')
         return False
 
-    # MP3 already on disk from a previous interrupted run — just update frontmatter
+    # MP3 already on disk from a previous interrupted run
     if audio_path.exists():
         print(f'  [fix]  {slug} — MP3 exists, updating frontmatter only')
         write_audio_url(post_path, slug)
-        print(f'         frontmatter updated')
         return True
 
     clean = strip_markdown(post.content)
@@ -131,7 +178,7 @@ def process_post(post_path: Path) -> bool:
     full_text = f"{title}.\n\n{clean}"
     chunks    = chunk_text(full_text, CHUNK_SIZE)
 
-    print(f'  [proc] {slug} — {len(full_text):,} chars, {len(chunks)} chunk(s)')
+    print(f'  [proc] {slug} — {len(full_text):,} chars, {len(chunks)} chunk(s) via {AUDIO_PROVIDER}')
 
     audio_bytes = b''
     for i, chunk in enumerate(chunks):
@@ -150,9 +197,22 @@ def process_post(post_path: Path) -> bool:
     return True
 
 
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+def validate_env():
+    if AUDIO_PROVIDER in ('elevenlabs', 'custom') and not ELEVENLABS_API_KEY:
+        print(f'ERROR: AUDIO_PROVIDER={AUDIO_PROVIDER} but ELEVENLABS_API_KEY is not set')
+        return False
+    if AUDIO_PROVIDER == 'openai' and not OPENAI_API_KEY:
+        print('ERROR: AUDIO_PROVIDER=openai but OPENAI_API_KEY is not set')
+        return False
+    return True
+
+
 def main():
-    if not API_KEY:
-        print('ERROR: Set OPENAI_API_KEY in your .env file')
+    if not validate_env():
         return
 
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
@@ -160,7 +220,8 @@ def main():
     posts = sorted(list(POSTS_DIR.glob('*.md')) + list(POSTS_DIR.glob('*.mdx')))
     posts = [p for p in posts if not p.name.startswith('_')]
 
-    print(f'Found {len(posts)} posts\n')
+    print(f'Provider  : {AUDIO_PROVIDER}')
+    print(f'Found     : {len(posts)} posts\n')
 
     generated, skipped, errors = 0, 0, []
 
@@ -177,6 +238,7 @@ def main():
             errors.append(post_path.name)
 
     print(f'\n── Summary ──────────────────────────────')
+    print(f'Provider  : {AUDIO_PROVIDER}')
     print(f'Generated : {generated}')
     print(f'Skipped   : {skipped}')
     print(f'Errors    : {len(errors)}')
@@ -189,8 +251,8 @@ if __name__ == '__main__':
     import sys
 
     if '--test' in sys.argv:
-        if not API_KEY:
-            print('ERROR: Set OPENAI_API_KEY in .env')
+        if not validate_env():
+            pass
         else:
             AUDIO_DIR.mkdir(parents=True, exist_ok=True)
             posts = sorted(list(POSTS_DIR.glob('*.md')) + list(POSTS_DIR.glob('*.mdx')))
@@ -198,7 +260,8 @@ if __name__ == '__main__':
             for post_path in posts:
                 post = frontmatter.load(str(post_path))
                 if not post.metadata.get('audioUrl') and not post.metadata.get('draft', False):
-                    print(f'Test run on: {post_path.name}')
+                    print(f'Test run on : {post_path.name}')
+                    print(f'Provider    : {AUDIO_PROVIDER}')
                     process_post(post_path)
                     print('\nTest complete. Check public/audio/ for the MP3.')
                     break
