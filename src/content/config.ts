@@ -8,6 +8,7 @@ const posts = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().optional().default(false),
+    audioUrl: z.string().optional(),
   }),
 });
 
