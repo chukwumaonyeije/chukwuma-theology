@@ -6,21 +6,21 @@ interface Props {
 const { src, title } = Astro.props;
 ---
 
-<div style="border: 1px solid #d4c5a9; border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; background: #fdf8f0;">
+<div style="border: 1px solid #d4c5a9; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; background: #f5f0e8;">
   <button
     id="audio-play-btn"
     aria-label="Play audio"
-    style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: #1a5276; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;"
+    style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: #2d4739; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;"
   >
     <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
     <svg id="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="white" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
   </button>
 
   <div style="flex: 1; min-width: 0;">
-    <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 0.7rem; color: #8a6d3b; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.2rem;">Listen to this post</p>
+    <p style="font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #c26d4b; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.2rem;">Listen to this post</p>
     <p style="font-family: Georgia, serif; font-size: 0.875rem; color: #555; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-style: italic;">{title}</p>
     <div style="margin-top: 0.5rem; position: relative; height: 3px; background: #e0d5c1; border-radius: 2px; cursor: pointer;" id="audio-progress-bar">
-      <div id="audio-progress" style="height: 100%; width: 0%; background: #c8a96e; border-radius: 2px; transition: width 0.1s linear;"></div>
+      <div id="audio-progress" style="height: 100%; width: 0%; background: #d4af37; border-radius: 2px; transition: width 0.1s linear;"></div>
     </div>
   </div>
 
