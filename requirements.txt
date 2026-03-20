@@ -1,0 +1,4 @@
+openai
+elevenlabs
+python-frontmatter
+python-dotenv

@@ -34,7 +34,7 @@ jobs:
           cache: pip
 
       - name: Install Python dependencies
-        run: pip install openai elevenlabs python-frontmatter python-dotenv
+        run: pip install -r requirements.txt
 
       - name: Generate audio for new posts
         env:
