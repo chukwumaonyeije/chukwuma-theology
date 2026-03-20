@@ -1,0 +1,134 @@
+/* Clean, minimal styles optimized for Substack import */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #1a1a1a;
+  background: #ffffff;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+article header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.25;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #111;
+}
+
+.meta {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.tags {
+  margin-top: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #555;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.description {
+  font-style: italic;
+  color: #555;
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+}
+
+/* Body content */
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  color: #111;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.5rem;
+  color: #111;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid #c8a96e;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: #444;
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1rem 0 1.25rem 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+.prose a {
+  color: #1a5276;
+  text-decoration: underline;
+}
+
+.prose strong {
+  font-weight: 700;
+  color: #111;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid #e5e5e5;
+  margin: 2.5rem 0;
+}
+
+/* Scripture callout */
+.scripture {
+  background: #fdf8f0;
+  border-left: 4px solid #c8a96e;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #333;
+}
+
+.scripture cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-style: normal;
+  color: #666;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
