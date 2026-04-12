@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demas and the Drift — Atlanta North Vespers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --primary:       #2d4739;
+      --primary-deep:  #1a2f26;
+      --secondary:     #c26d4b;
+      --accent:        #d4af37;
+      --accent-dim:    #b8952a;
+      --bg-light:      #faf9f6;
+      --bg-scripture:  #0d1a12;
+      --bg-dark:       #1a2f26;
+      --bg-tan:        #f5f0e8;
+      --text-dark:     #1a1a1a;
+      --text-muted:    #555555;
+      --text-light:    #f0ece4;
+      --border:        #d8d2c8;
+      --white:         #ffffff;
+      --on-dark:       #ffffff;
+      --on-dark-dim:   rgba(255,255,255,0.62);
+      --on-dark-faint: rgba(255,255,255,0.38);
+      --slide-w: 1280px;
+      --slide-h: 720px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       RESET & BODY
+       ═══════════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #0a0a0a;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SLIDESHOW WRAPPER
+       ═══════════════════════════════════════════════════════════════════ */
+    #deck {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #viewport {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      transform-origin: center center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SLIDE BASE
+       ═══════════════════════════════════════════════════════════════════ */
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 72px;
+      background: var(--bg-dark);
+      color: var(--on-dark);
+      overflow: hidden;
+      font-size: 20px;
+    }
+
+    .slide.active { display: flex; }
+
+    /* Gold gradient bar — bottom of every slide */
+    .slide::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary), var(--accent));
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--on-dark);
+      line-height: 1.18;
+      margin-bottom: 0.35em;
+    }
+    h1 { font-size: 2.9rem; font-weight: 700; }
+    h2 { font-size: 2.0rem; font-weight: 700; }
+    h3 { font-size: 1.3rem; font-weight: 400; font-style: italic; }
+    p  { font-size: 1.05rem; line-height: 1.65; color: var(--on-dark); }
+    ul { list-style: none; padding: 0; }
+    li {
+      font-size: 1.0rem; line-height: 1.55;
+      padding: 0.25em 0 0.25em 1.5em;
+      position: relative; color: var(--on-dark);
+    }
+    li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    strong { color: var(--accent); font-weight: 700; }
+    em { color: var(--secondary); font-style: italic; }
+
+    .accent-line {
+      width: 56px; height: 3px;
+      background: var(--accent);
+      margin: 0.45em 0 1em 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SLIDE TYPES
+       ═══════════════════════════════════════════════════════════════════ */
+
+    /* ── TITLE ────────────────────────────────────────────────────────── */
+    .slide-title {
+      background: var(--bg-dark);
+      align-items: center;
+      text-align: center;
+      padding: 48px 100px;
+    }
+    .slide-title::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(212,175,55,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(194,109,75,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .slide-title h1 {
+      font-size: 3.8rem;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+      margin-bottom: 0.12em;
+    }
+    .slide-title .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.45rem;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 1.4rem;
+    }
+    .event-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .divider-gold {
+      width: 72px; height: 2px;
+      background: var(--accent);
+      margin: 1.2rem auto;
+      opacity: 0.85;
+    }
+    .slide-credit {
+      font-size: 0.88rem;
+      opacity: 0.4;
+      letter-spacing: 0.08em;
+      margin-top: 0.5rem;
+    }
+
+    /* ── ANCHOR ───────────────────────────────────────────────────────── */
+    .slide-anchor {
+      background: var(--primary-deep);
+      align-items: center;
+      text-align: center;
+      padding: 48px 110px;
+    }
+    .slide-anchor blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.15rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.45;
+      margin-bottom: 0.9rem;
+      border: none;
+      padding: 0;
+    }
+    .slide-anchor blockquote strong { color: var(--accent); font-style: normal; font-weight: 700; }
+    .anchor-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .anchor-note {
+      font-size: 0.88rem;
+      color: var(--on-dark-dim);
+      font-style: italic;
+      margin-top: 1.2rem;
+    }
+
+    /* ── SCRIPTURE ────────────────────────────────────────────────────── */
+    .slide-scripture {
+      background: var(--bg-scripture);
+      align-items: flex-start;
+      padding: 56px 88px;
+    }
+    .ref-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .slide-scripture blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.0rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.5;
+      border-left: 5px solid var(--accent);
+      padding-left: 28px;
+      margin-bottom: 1rem;
+    }
+    .context-note {
+      font-size: 0.95rem;
+      color: var(--on-dark-dim);
+      font-style: italic;
+      margin-top: 1rem;
+    }
+    .arc-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--on-dark-faint);
+      position: absolute;
+      bottom: 20px;
+      right: 72px;
+    }
+
+    /* ── DARK STATEMENT ───────────────────────────────────────────────── */
+    .slide-dark-statement {
+      background: var(--primary-deep);
+      align-items: center;
+      text-align: center;
+      padding: 48px 90px;
+    }
+    .slide-dark-statement .statement-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.0rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.55;
+    }
+    .slide-dark-statement .statement-text strong { color: var(--accent); font-style: normal; }
+    .sub-note {
+      font-size: 0.9rem;
+      color: var(--on-dark-dim);
+      margin-top: 1.6rem;
+    }
+
+    /* ── GOLD STATEMENT ───────────────────────────────────────────────── */
+    .slide-gold-statement {
+      background: var(--accent);
+      align-items: center;
+      text-align: center;
+      padding: 48px 90px;
+    }
+    .slide-gold-statement::after { background: var(--primary-deep); }
+    .slide-gold-statement .statement-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-style: italic;
+      color: var(--primary-deep);
+      line-height: 1.4;
+      font-weight: 700;
+    }
+    .slide-gold-statement .sub-note {
+      font-size: 0.9rem;
+      color: rgba(26,47,38,0.7);
+      font-weight: 600;
+    }
+
+    /* ── POLL ─────────────────────────────────────────────────────────── */
+    .slide-poll {
+      background: var(--primary-deep);
+      padding: 36px 72px;
+      justify-content: flex-start;
+    }
+    .poll-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .poll-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--secondary);
+      color: var(--white);
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+    .mentimeter-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--on-dark-dim);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .slide-poll h2 {
+      font-size: 1.45rem;
+      margin-bottom: 0;
+      line-height: 1.3;
+      max-width: 960px;
+    }
+    .poll-rule {
+      width: 100%;
+      height: 1px;
+      background: rgba(212,175,55,0.35);
+      margin: 12px 0;
+    }
+    .poll-body {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 28px;
+      width: 100%;
+      flex: 1;
+      align-items: start;
+    }
+    .poll-left { display: flex; flex-direction: column; gap: 0; }
+    .poll-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      flex: 1;
+    }
+    .poll-option {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      line-height: 1.35;
+    }
+    .opt-letter {
+      width: 32px; height: 32px; min-width: 32px;
+      background: var(--accent);
+      color: var(--primary-deep);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+    .poll-qr-note {
+      font-size: 0.72rem;
+      color: var(--on-dark-faint);
+      font-style: italic;
+      margin-top: 8px;
+    }
+    .poll-qr-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px 14px 14px;
+      gap: 10px;
+      align-self: center;
+    }
+    .poll-qr-panel img {
+      width: 160px; height: 160px;
+      display: block;
+      border-radius: 6px;
+    }
+    .qr-go {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary-deep);
+      text-align: center;
+    }
+    .qr-url {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      text-align: center;
+    }
+    .qr-code-num {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+      letter-spacing: 0.12em;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      padding: 4px 10px;
+      width: 100%;
+    }
+
+    /* ── POLL OPEN ────────────────────────────────────────────────────── */
+    .slide-poll-open {
+      background: var(--primary-deep);
+      align-items: center;
+      text-align: center;
+      padding: 48px 100px;
+    }
+    .slide-poll-open .poll-badge {
+      display: inline-block;
+      margin-bottom: 1.4rem;
+      padding: 6px 14px;
+      font-size: 0.68rem;
+    }
+    .slide-poll-open h2 {
+      font-size: 2.1rem;
+      max-width: 860px;
+      line-height: 1.4;
+    }
+    .poll-open-row {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 28px;
+      width: 100%;
+      align-items: center;
+      text-align: left;
+    }
+    .poll-sub {
+      font-size: 0.85rem;
+      color: var(--on-dark-faint);
+      font-style: italic;
+      margin-top: 1.2rem;
+    }
+
+    /* ── QUESTION ─────────────────────────────────────────────────────── */
+    .slide-question {
+      background: var(--bg-dark);
+      align-items: center;
+      text-align: center;
+      padding: 48px 110px;
+    }
+    .slide-question h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-style: italic;
+      max-width: 900px;
+      line-height: 1.45;
+    }
+    .q-note {
+      font-size: 0.85rem;
+      color: var(--on-dark-dim);
+      margin-top: 1.6rem;
+      font-style: italic;
+    }
+
+    /* ── DISCUSSION ───────────────────────────────────────────────────── */
+    .slide-discussion {
+      background: var(--bg-dark);
+      padding: 40px 72px;
+      justify-content: flex-start;
+    }
+    .disc-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 14px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.9rem;
+    }
+    .slide-discussion h2 { font-size: 1.5rem; margin-bottom: 0.2em; }
+    .disc-questions { margin-top: 1rem; width: 100%; }
+    .disc-q {
+      background: rgba(255,255,255,0.07);
+      border-left: 4px solid var(--accent);
+      padding: 16px 22px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 12px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .disc-time {
+      font-size: 0.75rem;
+      color: var(--on-dark-dim);
+      font-style: italic;
+      margin-top: 0.8rem;
+    }
+
+    /* ── QUOTE ────────────────────────────────────────────────────────── */
+    .slide-quote {
+      background: var(--bg-dark);
+      padding: 48px 80px;
+      align-items: flex-start;
+    }
+    .quote-source {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+    .slide-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.6;
+      border: none;
+      padding-left: 24px;
+      border-left: 4px solid var(--accent);
+      max-width: 1020px;
+      position: relative;
+    }
+    .slide-quote blockquote::before {
+      content: '\201C';
+      font-size: 6rem;
+      color: var(--accent);
+      opacity: 0.2;
+      position: absolute;
+      top: -20px; left: -10px;
+      line-height: 1;
+      font-family: 'Playfair Display', serif;
+    }
+    .quote-attr {
+      font-size: 0.82rem;
+      color: var(--on-dark-dim);
+      margin-top: 1.1rem;
+      font-style: italic;
+    }
+
+    /* ── TENSION ──────────────────────────────────────────────────────── */
+    .slide-tension {
+      background: var(--bg-dark);
+      padding: 40px 72px;
+      align-items: flex-start;
+    }
+    .tension-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--on-dark-dim);
+      margin-bottom: 1rem;
+    }
+    .tension-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+    .tension-card {
+      padding: 28px 26px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 160px;
+    }
+    .tension-card.card-a {
+      background: rgba(212,175,55,0.12);
+      border: 1.5px solid rgba(212,175,55,0.4);
+      border-top: 4px solid var(--accent);
+    }
+    .tension-card.card-b {
+      background: rgba(194,109,75,0.12);
+      border: 1.5px solid rgba(194,109,75,0.35);
+      border-top: 4px solid var(--secondary);
+    }
+    .tension-card p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      color: var(--white);
+    }
+    .tension-footnote {
+      font-size: 0.82rem;
+      color: var(--on-dark-dim);
+      font-style: italic;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    /* ── SABBATH ──────────────────────────────────────────────────────── */
+    .slide-sabbath {
+      background: var(--primary-deep);
+      padding: 40px 80px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    .slide-sabbath h2 { font-size: 1.9rem; margin-bottom: 0.1em; }
+    .sabbath-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .sabbath-not-rule {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--on-dark-dim);
+      margin: 0.2rem 0 1.2rem 0;
+    }
+    .sabbath-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      width: 100%;
+      margin-top: 0.4rem;
+    }
+    .s-col-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .s-col-label.interrupts { color: var(--secondary); }
+    .s-col-label.recenters  { color: var(--accent); }
+    .s-col li { font-size: 0.95rem; color: var(--on-dark-dim); }
+
+    /* ── REFLECTION ───────────────────────────────────────────────────── */
+    .slide-reflection {
+      background: var(--bg-dark);
+      align-items: center;
+      text-align: center;
+      padding: 48px 110px;
+    }
+    .ref-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+      display: block;
+    }
+    .slide-reflection h2 {
+      font-size: 1.9rem;
+      font-style: italic;
+      max-width: 860px;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+    .ref-note {
+      font-size: 0.82rem;
+      color: var(--on-dark-faint);
+      margin-top: 1.4rem;
+      font-style: italic;
+    }
+
+    /* ── LINGERING ────────────────────────────────────────────────────── */
+    .slide-lingering {
+      background: var(--primary-deep);
+      align-items: center;
+      text-align: center;
+      padding: 48px 90px;
+    }
+    .ling-pre {
+      font-size: 0.9rem;
+      color: var(--on-dark-dim);
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .slide-lingering h2 {
+      font-size: 1.9rem;
+      max-width: 880px;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+    .ling-verse-a {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-top: 1.2rem;
+    }
+    .ling-verse-b {
+      font-size: 0.85rem;
+      color: var(--on-dark-faint);
+      letter-spacing: 0.08em;
+      margin-top: 0.35rem;
+    }
+
+    /* ── SECTION INTRO ────────────────────────────────────────────────── */
+    .slide-section-intro {
+      background: var(--bg-dark);
+      align-items: flex-start;
+      padding: 56px 88px;
+    }
+    .sec-number {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 0.4rem;
+    }
+    .slide-section-intro h1 { font-size: 2.7rem; margin-bottom: 0.1em; }
+    .slide-section-intro p {
+      font-size: 1.05rem;
+      color: var(--on-dark-dim);
+      max-width: 700px;
+      margin-top: 0.4rem;
+    }
+    .sec-bar {
+      width: 56px; height: 3px;
+      background: var(--accent);
+      margin: 0.6rem 0 0.8rem 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       FACILITATOR NOTES PANEL (shown at bottom, toggled with F)
+       ═══════════════════════════════════════════════════════════════════ */
+    #facilitator-panel {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(10,10,10,0.96);
+      border-top: 2px solid var(--accent);
+      padding: 14px 32px;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    #facilitator-panel.visible { transform: translateY(0); }
+    #facilitator-panel .fn-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    #facilitator-panel .fn-content {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.6;
+    }
+    #facilitator-panel .fn-timing {
+      display: inline-block;
+      margin-right: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SLIDE COUNTER + CONTROLS
+       ═══════════════════════════════════════════════════════════════════ */
+    #controls {
+      position: fixed;
+      bottom: 18px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 999;
+    }
+    #slide-counter {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.5);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .ctrl-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ctrl-btn:hover { background: rgba(255,255,255,0.18); }
+    .ctrl-btn.f-active { color: var(--accent); border-color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PROGRESS BAR
+       ═══════════════════════════════════════════════════════════════════ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+      z-index: 999;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       KEYBOARD HINT TOAST
+       ═══════════════════════════════════════════════════════════════════ */
+    #kb-hint {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.75);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      padding: 8px 20px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      opacity: 1;
+      transition: opacity 1s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+    #kb-hint.hidden { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
+<!-- Main deck -->
+<div id="deck">
+  <div id="viewport">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 1 — TITLE
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-title active" data-fn-timing="0:00" data-fn="Welcome everyone. Allow people to settle. Begin with a moment of silent prayer before speaking. This is the framing slide — let it breathe for 30–45 seconds.">
+      <div class="event-tag">Atlanta North Vespers</div>
+      <h1>Demas and the Drift</h1>
+      <div class="subtitle">When Good Work Replaces First Love</div>
+      <div class="divider-gold"></div>
+      <div class="subtitle" style="font-size:1rem; opacity:0.5; font-style:normal; letter-spacing:0.1em;">2 Timothy 4:10</div>
+      <div class="slide-credit">Chukwuma Onyeije &nbsp;·&nbsp; Atlanta North Vespers</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 2 — ANCHOR TEXT
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-anchor" data-fn-timing="1:00" data-fn="FACILITATOR ANCHOR — keep this in mind all evening. This sentence is the interpretive key to everything. Say it aloud: 'Demas did not stop working. He stopped loving rightly.' Pause after. Let it land. Then move to the opening poll.">
+      <div class="anchor-label">Facilitator Anchor — Keep This in View All Evening</div>
+      <blockquote>
+        "Before Demas left the path,<br>
+        his heart had already begun to <strong>drift.</strong>"
+      </blockquote>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 3 — QR PULSE #1
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-poll" data-fn-timing="2:00" data-fn="Opening engagement poll. Give 2–3 minutes. Say: 'Before we get into the story, I want to know where you are right now. Scan the code or go to menti.com. This is anonymous — just be honest.' Watch the results display live. Acknowledge what you see before moving to the next slide.">
+      <div class="poll-header">
+        <span class="poll-badge">QR Pulse #1</span>
+        <span class="mentimeter-tag">Mentimeter Poll</span>
+      </div>
+      <h2>Right now, what gets most of your daily attention?</h2>
+      <div class="poll-rule"></div>
+      <div class="poll-body">
+        <div class="poll-left">
+          <div class="poll-options">
+            <div class="poll-option"><span class="opt-letter">A</span>Christ and devotional life</div>
+            <div class="poll-option"><span class="opt-letter">B</span>Career and professional growth</div>
+            <div class="poll-option"><span class="opt-letter">C</span>Relationships and family</div>
+            <div class="poll-option"><span class="opt-letter">D</span>Personal goals and self-development</div>
+          </div>
+          <p class="poll-qr-note">Scan code or visit menti.com — results display live</p>
+        </div>
+        <div class="poll-qr-panel">
+          <img src="mentimeter_qr_code.png" alt="Mentimeter QR Code" />
+          <div class="qr-go">Go to</div>
+          <div class="qr-url">menti.com</div>
+          <div class="qr-code-num">3461 4656</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 4 — PIVOTAL QUESTION #1
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-question" data-fn-timing="5:30" data-fn="After poll results: reference what you just saw. Then say: 'Hold onto whatever you picked. Now hear this question.' Read it slowly. Let silence do the work — don't rush past this. 15–20 seconds of silence is appropriate here.">
+      <h2 style="font-size:2.6rem;">"Which of these could slowly replace Christ —<br>without you even noticing?"</h2>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 5 — SECTION INTRO: THREE MENTIONS
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-section-intro" data-fn-timing="6:30" data-fn="Transition: 'We're going to look at one man — Demas — whose story shows up in exactly three places in the New Testament. Three verses. That's it. But the arc is the whole point.' Move through the next three scripture slides slowly, pausing after each.">
+      <div class="sec-number">Scripture</div>
+      <h1>The Three Mentions of Demas</h1>
+      <div class="sec-bar"></div>
+      <p>The arc is the whole point.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 6 — SCRIPTURE: COLOSSIANS 4:14
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-scripture" data-fn-timing="7:00" data-fn="Read slowly. Emphasis on 'Demas.' Say: 'He greets them. He's trusted. He's present. He's named alongside Luke the physician — that's elite company.' Let it sit. Then move to the next mention.">
+      <span class="ref-tag">Colossians 4:14</span>
+      <blockquote>
+        "Luke the beloved physician, and <strong>Demas,</strong><br>
+        greet you."
+      </blockquote>
+      <p class="context-note">The co-laborer. Present. Trusted. Named.</p>
+      <span class="arc-label">1 of 3</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 7 — SCRIPTURE: PHILEMON 1:24
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-scripture" data-fn-timing="7:45" data-fn="Pause before reading. Say: 'Still in the inner circle. Paul calls him a fellow labourer. That's not a casual word.' Read the verse. Emphasize 'still working.' Then move to the final mention — and pause there.">
+      <span class="ref-tag">Philemon 1:24</span>
+      <blockquote>
+        "Marcus, Aristarchus, <strong>Demas,</strong> Lucas,<br>
+        my fellow labourers."
+      </blockquote>
+      <p class="context-note">Still in the inner circle. Still working.</p>
+      <span class="arc-label">2 of 3</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 8 — SCRIPTURE: 2 TIMOTHY 4:10
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-scripture" data-fn-timing="8:30" data-fn="This is the anchor text for the whole evening. Read it clearly and slowly. Then be silent for 5 seconds. Then say: 'Paul does not say Demas became wicked. He does not say Demas stopped working. He says Demas loved something else more.' That is the sermon in one sentence.">
+      <span class="ref-tag">2 Timothy 4:10</span>
+      <blockquote>
+        "For <strong>Demas</strong> hath forsaken me, having loved<br>
+        this present world."
+      </blockquote>
+      <p class="context-note">Paul doesn't say Demas became wicked. He says Demas loved something else more.</p>
+      <p class="context-note" style="margin-top:0.6rem; color:var(--accent); font-style:normal; font-weight:600;">Ask someone to read passages from Ellen G. White on Demas.</p>
+      <span class="arc-label">3 of 3</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 9 — PAIRS DISCUSSION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-discussion" data-fn-timing="9:30" data-fn="Give clear instructions: 'Turn to one person near you. You have exactly two minutes. Here's the question.' Read it. Start a 2-minute timer. Walk the room. After 2 min, invite 1–2 groups to share back briefly (30 seconds each). Then pivot to the next slide.">
+      <div class="disc-badge">Pairs Discussion — 2 Minutes</div>
+      <h2>Did Demas fall suddenly — or drift gradually?</h2>
+      <div class="disc-questions">
+        <div class="disc-q">"What do you think happened between Colossians and 2 Timothy?"</div>
+      </div>
+      <p class="disc-time">Turn to one person near you. Two minutes. Then we share back.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 10 — KEY INSIGHT: CHRONIC CONDITION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-dark-statement" data-fn-timing="12:30" data-fn="After sharing back from pairs: say this line slowly, as a conclusion. 'Here is what the scholars notice about the Greek. Here is what the progression of mentions tells us.' Read the statement. Don't rush past it. This is a pivot slide — it sets up Acts 2 and 3.">
+      <div class="statement-text">
+        "Demas was not lost in a day.<br><br>
+        He was lost by <strong>degrees.</strong>"
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 11 — QR PULSE #2
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-poll" data-fn-timing="13:30" data-fn="Second poll — now participants are more engaged and self-aware. Say: 'Based on what you've just discussed, I want you to vote on this.' Give 2–3 minutes. When the word cloud appears, comment on what's showing. Say: 'Look at what we've collectively identified. That's the diagnostic.'">
+      <div class="poll-header">
+        <span class="poll-badge">QR Pulse #2</span>
+        <span class="mentimeter-tag">Word Cloud</span>
+      </div>
+      <h2>What do you think is the primary diagnosis for Demas?</h2>
+      <div class="poll-rule"></div>
+      <div class="poll-body">
+        <div class="poll-left">
+          <div class="poll-options">
+            <div class="poll-option"><span class="opt-letter">A</span>Burnout and spiritual exhaustion</div>
+            <div class="poll-option"><span class="opt-letter">B</span>Gradual distraction by success</div>
+            <div class="poll-option"><span class="opt-letter">C</span>Loss of devotional discipline</div>
+            <div class="poll-option"><span class="opt-letter">D</span>Misplaced love — loving a good thing too much</div>
+          </div>
+          <p class="poll-qr-note">Scan code or visit menti.com — word cloud displays live</p>
+        </div>
+        <div class="poll-qr-panel">
+          <img src="mentimeter_qr_code.png" alt="Mentimeter QR Code" />
+          <div class="qr-go">Go to</div>
+          <div class="qr-url">menti.com</div>
+          <div class="qr-code-num">3461 4656</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 12 — ELLEN WHITE: ABSORBED IN BUSINESS
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-quote" data-fn-timing="17:00" data-fn="Read the quote slowly and clearly. Then say: 'She wrote this over a hundred years ago. She was describing professionals. She was describing people in ministry. She was describing us.' Allow a moment of silence before moving on.">
+      <div class="quote-source">Ellen White &nbsp;·&nbsp; Testimonies for the Church, Vol. 5, p. 161</div>
+      <blockquote>
+        "Many are so absorbed in business that they have no time for prayer, no time for the study of the Bible… The cares of this life crowd out the things of eternity."
+      </blockquote>
+      <div class="quote-attr">— Ellen G. White</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 13 — SECTION INTRO: CORE TENSION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-section-intro" data-fn-timing="18:30" data-fn="Transition statement: 'Now I want to sit in the tension. Because this is not a simple message. God actually calls us to meaningful work in the world. And at the same time, that world can quietly replace Him. Both are true. Both are real. This is the permanent condition of the Christian professional life.'">
+      <div class="sec-number">The Core Tension</div>
+      <h1>Good Work vs. First Love</h1>
+      <div class="sec-bar"></div>
+      <p>Both truths are real. The tension is the point.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 14 — TENSION: TWO STATEMENTS
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-tension" data-fn-timing="19:30" data-fn="Point to card A first. 'God calls us to meaningful work.' Pause. Point to card B. 'And the world can quietly replace God in our hearts.' Pause. Then read the footnote aloud. Say: 'This tension doesn't go away when you get more spiritual. It intensifies the more faithful you become.' Let that land.">
+      <div class="tension-label">Hold both of these at the same time</div>
+      <div class="tension-grid">
+        <div class="tension-card card-a">
+          <p>God calls us to meaningful work in the world.</p>
+        </div>
+        <div class="tension-card card-b">
+          <p>The world can quietly replace God in our hearts.</p>
+        </div>
+      </div>
+      <p class="tension-footnote">The tension between them is not a contradiction. It is the permanent condition of the Christian life.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 15 — GREAT CONTROVERSY QUOTE
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-quote" data-fn-timing="21:00" data-fn="Say: 'Ellen White helps us understand why this is so hard. Satan doesn't come at us directly most of the time. He comes through distortion and distraction.' Read the quote. Then: 'He makes the work seem like enough. He makes busyness feel like faithfulness.'">
+      <div class="quote-source">Ellen White &nbsp;·&nbsp; The Great Controversy, p. 508</div>
+      <blockquote>
+        "Satan works to distort the character of God — often making Him seem harsh or unloving — to distract humans, breaking their focus and preventing a close, personal relationship with Him."
+      </blockquote>
+      <div class="quote-attr">— Ellen G. White</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 16 — SMALL GROUP DISCUSSION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-discussion" data-fn-timing="22:30" data-fn="Groups of 3–4 people. Give 4 minutes total. Say: 'These are not rhetorical questions. These are questions I want you to actually answer for each other.' Walk the room during this. Listen. Note what you hear — you may reference themes in your closing remarks. After 4 min, don't take too many reports back — just 1 or 2 if time allows.">
+      <div class="disc-badge">Small Groups — 3 to 4 People — 4 Minutes</div>
+      <h2>Two questions for your group:</h2>
+      <div class="disc-questions">
+        <div class="disc-q">"How do you know when your work is still worship — and when it has become replacement?"</div>
+        <div class="disc-q">"What does loving Christ practically look like in a busy professional life?"</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 17 — ADVENTIST STAKES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-dark-statement" data-fn-timing="27:30" data-fn="This slide raises the eschatological stakes. Say: 'There's something uniquely important about this for Adventists. We believe the final crisis will be about worship and allegiance. Not activity. Not church attendance. Not ministry output. Worship.' Read the statement. Then pause. 'Demas is not just a cautionary tale about slacking off. He is a cautionary tale about what we worship while we work.'">
+      <div class="statement-text">
+        "If the final crisis is about <strong>worship and allegiance</strong> —<br>
+        not activity — then Demas is not a cautionary tale<br>
+        about slacking off.<br><br>
+        He is a cautionary tale about<br>
+        what we <strong>worship</strong> while we work."
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 18 — STEPS TO CHRIST QUOTE
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-quote" data-fn-timing="29:30" data-fn="Read this quote slowly. This is the positive vision — not fear as motivation, but love. Say: 'Ellen White describes a different kind of discipleship. One where duty becomes a delight. Not because we earn it — but because we behold the Saviour's love.' Let this pivot the tone toward the positive response section ahead.">
+      <div class="quote-source">Ellen White &nbsp;·&nbsp; Steps to Christ, p. 44</div>
+      <blockquote>
+        "It is not so much the fear of punishment, or the hope of everlasting reward, that leads the disciples of Christ to follow Him. They behold the Saviour's matchless love… and to them duty becomes a delight and sacrifice a pleasure."
+      </blockquote>
+      <div class="quote-attr">— Ellen G. White</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 19 — SECTION INTRO: REORIENTATION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-section-intro" data-fn-timing="31:00" data-fn="Transition: 'Before we go to the response and the invitation, let's ground ourselves in two texts. Let them breathe. Don't rush past them.' These are two of the most important slides in the evening — Matthew 6:21 and Revelation 2:4.">
+      <div class="sec-number">Biblical Reorientation</div>
+      <h1>Christ at the Center</h1>
+      <div class="sec-bar"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 20 — MATTHEW 6:21
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-scripture" style="align-items:center; text-align:center;" data-fn-timing="31:30" data-fn="Read it. Then say: 'Jesus is not being cryptic here. He is giving us a diagnostic tool. You want to know what you love? Look at where your time goes. Look at what consumes your imagination at night. Look at what you protect.' Let that breathe.">
+      <span class="ref-tag">Matthew 6:21</span>
+      <blockquote style="border-left:none; padding-left:0; border-top:5px solid var(--accent); padding-top:24px;">
+        "For where your treasure is,<br>
+        there will your <strong>heart</strong> be also."
+      </blockquote>
+      <p class="context-note">The heart follows what you value. The treasure reveals what you love.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 21 — REVELATION 2:4
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-scripture" data-fn-timing="32:30" data-fn="This is the Ephesus letter. Say: 'Jesus says this to a church that was working harder than anyone else. They were busy. They were faithful in activity. And Jesus says: I have something against you. Your heart has moved.' Let silence fall after this one. It is convicting.">
+      <span class="ref-tag">Revelation 2:4 — To the Church at Ephesus</span>
+      <blockquote>
+        "Nevertheless I have somewhat against thee,<br>
+        because thou hast <strong>left thy first love.</strong>"
+      </blockquote>
+      <p class="context-note">A church that worked harder than any other. But the heart had moved.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 22 — ACTS OF APOSTLES QUOTE
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-quote" style="align-items:center; text-align:center;" data-fn-timing="34:00" data-fn="Read the quote. Then say: 'This is the church Ellen White says lost its first love. It's a church that cared more about the form of worship than the heart of worship. More about appearance than relationship. Does any of that sound familiar?' Let the room respond internally.">
+      <div class="quote-source">Ellen White &nbsp;·&nbsp; The Acts of the Apostles, p. 547</div>
+      <blockquote>
+        "The church of Ephesus had let slip her first love. She was more intent on carrying on the forms and ceremonies of religion than on possessing its spirit. She was more anxious to win the approval of men than to win the approval of God."
+      </blockquote>
+      <div class="quote-attr">— Ellen G. White</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 23 — GOLD STATEMENT: SABBATH AS RESCUE
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-gold-statement" data-fn-timing="35:30" data-fn="This is the turn. Say this line BEFORE advancing to this slide — let it arrive visually as punctuation. Or read it aloud as you show it. 'The Sabbath is God's built-in resistance against becoming Demas.' Then: 'Not a rule. A rescue.' Let that sit. Let people re-see Sabbath.">
+      <div class="statement-text">"The Sabbath is God's built-in resistance against becoming Demas."</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 24 — SABBATH REFRAME
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-sabbath" data-fn-timing="36:30" data-fn="Walk through both columns. For 'Interrupts': say each one slowly — identity through achievement, constant striving, replacement of God. For 'Recenters': say each one slowly — relationship over performance, trust over productivity, devotion over deliverables. Ask: 'Is that how you've thought about Sabbath?' Don't require an answer. Let it be conviction.">
+      <div class="sabbath-tag">The Sabbath as Corrective</div>
+      <h2>It interrupts. It recenters.</h2>
+      <div class="sabbath-not-rule">Not a rule. A rescue.</div>
+      <div class="sabbath-grid">
+        <div class="s-col">
+          <div class="s-col-label interrupts">It interrupts</div>
+          <ul>
+            <li>Identity through achievement</li>
+            <li>Constant striving</li>
+            <li>Replacement of God by good things</li>
+          </ul>
+        </div>
+        <div class="s-col">
+          <div class="s-col-label recenters">It recenters</div>
+          <ul>
+            <li>Relationship over performance</li>
+            <li>Trust over productivity</li>
+            <li>Devotion over deliverables</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 25 — DEMAS LOST THE SABBATH FIRST
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-dark-statement" data-fn-timing="38:30" data-fn="Read this slowly. Say: 'We don't know exactly what happened with Demas. But I believe this: before the world captured his hands, it captured his rest. He stopped stopping. And when we stop stopping, the drift begins.' This prepares the room for the most personal poll — Pulse #3.">
+      <div class="statement-text">
+        "Demas still looked connected to ministry,<br>
+        but his heart had drifted from Jesus.<br><br>
+        He lost his <strong>first love</strong> before he lost his way."
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 26 — QR PULSE #3
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-poll-open" data-fn-timing="40:00" data-fn="Most personal poll of the evening. Say: 'I want to ask you the most honest question of tonight. This is anonymous — no one will see your name. Just you and God and the word cloud.' Give 3 minutes. As the cloud builds, say quietly: 'Look at what we're carrying.' Then advance to the next slide.">
+      <span class="poll-badge">QR Pulse #3 — Open Response</span>
+      <div class="poll-open-row">
+        <h2>"What is competing with Christ for your deepest affection right now?"</h2>
+        <div class="poll-qr-panel">
+          <img src="mentimeter_qr_code.png" alt="Mentimeter QR Code" />
+          <div class="qr-go">Go to</div>
+          <div class="qr-url">menti.com</div>
+          <div class="qr-code-num">3461 4656</div>
+        </div>
+      </div>
+      <p class="poll-sub">Your answer is anonymous — word cloud displays live</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 27 — CLOSER TO DEMAS THAN WE THOUGHT
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-anchor" data-fn-timing="43:30" data-fn="After the word cloud: pause. Look at the room. Then say this line slowly, looking at them — not at the screen. 'I think what we're seeing here… is that we are all closer to Demas than we thought.' Allow silence. This is the moment of honesty. Don't rescue it too quickly.">
+      <div class="anchor-label">After the word cloud</div>
+      <blockquote>
+        "I think what we're seeing here…<br>
+        is that we can become <strong>closer to Demas</strong><br>
+        than we thought."
+      </blockquote>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 28 — PRIVATE REFLECTION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-reflection" data-fn-timing="45:00" data-fn="Say: 'For the next two minutes, I want this to be between you and God. Not for the group. Not to share. Use your phone or a piece of paper.' Read the question from the slide. Then go quiet. Play soft instrumental music if possible. This is sacred time. After 2 min, say: 'Amen.' Then transition to the closing.">
+      <span class="ref-badge">Private Reflection — 2 Minutes — Not for Sharing</span>
+      <h2>"What would it look like to choose Christ first this week? Not in general. <strong>This week.</strong>"</h2>
+      <p class="ref-note">Have someone pray for this group and the focus for THIS WEEK.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 29 — LINGERING QUESTION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-lingering" data-fn-timing="47:30" data-fn="Before closing prayer: say 'I want to leave you with one question to carry home. You don't have to answer it tonight. But I want it to follow you.' Read the question. Then read both verse labels slowly. Give the room 20–30 seconds of silence. Then say: 'Let's pray.'">
+      <div class="ling-pre">Before we close — a question to carry home:</div>
+      <h2>"If someone wrote one sentence about your spiritual life five years from now — would it sound more like Colossians… or 2 Timothy?"</h2>
+      <div class="ling-verse-a">Colossians 4:14 — co-laborer, present, trusted</div>
+      <div class="ling-verse-b">2 Timothy 4:10 — having loved this present world</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SLIDE 30 — CLOSING
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="slide slide-title" data-fn-timing="49:00" data-fn="Closing prayer slide. Say: 'Let's close not with a charge to work harder. Let's close with a prayer for reordered love.' Pray. Keep it brief and personal — 90 seconds to 2 minutes. After prayer, this slide stays up as people leave. Total runtime: approximately 50–55 minutes including discussion.">
+      <div class="event-tag">Atlanta North Vespers</div>
+      <h1>Demas and the Drift</h1>
+      <div class="subtitle" style="font-style:italic; font-size:1.3rem; opacity:0.85; margin-top:0.5rem;">
+        Close in prayer. Not for success.<br>Not for productivity.<br>For reordered love.
+      </div>
+      <div class="divider-gold"></div>
+    </section>
+
+  </div><!-- /viewport -->
+</div><!-- /deck -->
+
+<!-- Facilitator Notes Panel -->
+<div id="facilitator-panel">
+  <div class="fn-label">Facilitator Notes <span style="font-weight:400;opacity:0.6;margin-left:8px;">Press F to toggle</span></div>
+  <div class="fn-content">
+    <span class="fn-timing" id="fn-timing"></span>
+    <span id="fn-text"></span>
+  </div>
+</div>
+
+<!-- Controls -->
+<div id="controls">
+  <span id="slide-counter">1 / 30</span>
+  <button class="ctrl-btn" id="fn-toggle-btn" onclick="toggleFacilitator()">F — Notes</button>
+  <button class="ctrl-btn" onclick="prevSlide()">&#8592;</button>
+  <button class="ctrl-btn" onclick="nextSlide()">&#8594;</button>
+</div>
+
+<!-- Keyboard hint toast -->
+<div id="kb-hint">← → Space to navigate &nbsp;·&nbsp; F for facilitator notes</div>
+
+<script>
+  /* ═══════════════════════════════════════════════════════════════════
+     SLIDESHOW ENGINE
+     ═══════════════════════════════════════════════════════════════════ */
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let facilitatorVisible = false;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, total - 1));
+    slides[current].classList.add('active');
+    updateCounter();
+    updateProgressBar();
+    updateFacilitatorNotes();
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  function updateCounter() {
+    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
+  }
+
+  function updateProgressBar() {
+    const pct = ((current + 1) / total) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+
+  function updateFacilitatorNotes() {
+    const slide = slides[current];
+    const timing = slide.getAttribute('data-fn-timing') || '';
+    const text = slide.getAttribute('data-fn') || '';
+    document.getElementById('fn-timing').textContent = timing ? `[~${timing}]` : '';
+    document.getElementById('fn-text').textContent = text;
+  }
+
+  function toggleFacilitator() {
+    facilitatorVisible = !facilitatorVisible;
+    const panel = document.getElementById('facilitator-panel');
+    const btn = document.getElementById('fn-toggle-btn');
+    panel.classList.toggle('visible', facilitatorVisible);
+    btn.classList.toggle('f-active', facilitatorVisible);
+  }
+
+  /* Keyboard navigation */
+  document.addEventListener('keydown', (e) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+        e.preventDefault();
+        nextSlide();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        prevSlide();
+        break;
+      case 'f':
+      case 'F':
+        toggleFacilitator();
+        break;
+      case 'Home':
+        showSlide(0);
+        break;
+      case 'End':
+        showSlide(total - 1);
+        break;
+    }
+  });
+
+  /* Touch/swipe support */
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      dx < 0 ? nextSlide() : prevSlide();
+    }
+  }, { passive: true });
+
+  /* Scale viewport to fill window */
+  function scaleViewport() {
+    const vp = document.getElementById('viewport');
+    const scaleX = window.innerWidth / 1280;
+    const scaleY = window.innerHeight / 720;
+    const scale = Math.min(scaleX, scaleY);
+    vp.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', scaleViewport);
+  scaleViewport();
+
+  /* Initialize */
+  updateCounter();
+  updateProgressBar();
+  updateFacilitatorNotes();
+
+  /* Dismiss keyboard hint after 5 seconds */
+  setTimeout(() => {
+    document.getElementById('kb-hint').classList.add('hidden');
+  }, 5000);
+</script>
+</body>
+</html>

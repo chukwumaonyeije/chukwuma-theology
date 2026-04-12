@@ -7,6 +7,16 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const featuredPresentations = [
+  {
+    title: 'Demas and the Drift',
+    description:
+      'A standalone Atlanta North vespers slideshow exploring how spiritual drift often begins long before collapse becomes visible.',
+    href: `${base}/presentations/demas-and-the-drift-vespers/`,
+    tag: 'Vespers Presentation',
+    meta: 'Standalone slideshow · 30 slides',
+  },
+];
 ---
 
 <!doctype html>
@@ -139,6 +149,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       .read-more:hover { color: var(--secondary); }
 
+      .section-copy {
+        color: var(--text-muted);
+        font-size: 1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
       /* ── About strip ────────────────────────────── */
       .about-strip {
         background: var(--primary);
@@ -171,6 +188,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#studies">Bible Studies</a></li>
+          <li><a href="#presentations">Presentations</a></li>
           <li><a href="https://chukwumatheology.substack.com/" target="_blank" rel="noopener">Substack</a></li>
           <li><a href="#contact">Connect</a></li>
         </ul>
@@ -210,6 +228,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                     {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </div>
                   <a href={`${base}/posts/${post.slug}/`} class="read-more">Read More →</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="presentations" class="posts-section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Presentations</h2>
+            <p class="section-copy">Standalone talks and slide decks published directly on the site for reading, teaching, and sharing.</p>
+          </div>
+
+          <div class="card-container">
+            {featuredPresentations.map((presentation) => (
+              <article class="card">
+                <div class="card-body">
+                  <div class="card-tag">{presentation.tag}</div>
+                  <h3>{presentation.title}</h3>
+                  <p>{presentation.description}</p>
+                  <div class="card-meta">{presentation.meta}</div>
+                  <a href={presentation.href} class="read-more">Open Presentation →</a>
                 </div>
               </article>
             ))}
