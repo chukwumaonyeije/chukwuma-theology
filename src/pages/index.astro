@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Faith, Reason, and the Holy Spirit in Hermeneutics',
+    description:
+      'A standalone elder study on sanctified reason, faithful interpretation, and why the Holy Spirit is indispensable in Adventist hermeneutics.',
+    href: `${base}/presentations/faith-reason-and-the-holy-spirit-in-hermeneutics/`,
+    tag: 'Elder Study Presentation',
+    meta: 'Standalone slideshow · 9 slides',
+  },
+  {
     title: 'Demas and the Drift',
     description:
       'A standalone Atlanta North vespers slideshow exploring how spiritual drift often begins long before collapse becomes visible.',

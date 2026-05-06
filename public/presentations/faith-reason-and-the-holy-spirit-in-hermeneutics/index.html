@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faith, Reason, and the Holy Spirit in Hermeneutics</title>
+    <meta name="description" content="A standalone elder study presentation on sanctified reason, biblical interpretation, and the indispensable role of the Holy Spirit in faithful Adventist hermeneutics.">
+    <meta name="author" content="Chukwuma I. Onyeije, MD, FACOG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-navy: #2C3E50;
+            --warm-amber: #E67E22;
+            --soft-white: #ECF0F1;
+            --muted-silver: #95A5A6;
+            --deep-bg: #1a2533;
+            --card-bg: rgba(44, 62, 80, 0.85);
+            --overlay: rgba(26, 37, 51, 0.72);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--deep-bg);
+            color: var(--soft-white);
+            font-family: 'Lato', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .deck {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3em 5em;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            visibility: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Slide Backgrounds */
+        .slide-bg-1 {
+            background: linear-gradient(135deg, #1a2533 0%, #2C3E50 50%, #1a1a2e 100%);
+        }
+        .slide-bg-2 {
+            background: linear-gradient(160deg, #1a2533 0%, #2d3a4a 60%, #1e2d3d 100%);
+        }
+        .slide-bg-3 {
+            background: linear-gradient(145deg, #1a2533 0%, #2C3E50 40%, #3d2b1f 100%);
+        }
+        .slide-bg-4 {
+            background: linear-gradient(150deg, #1a2533 0%, #2a3a2a 60%, #1e3d2d 100%);
+        }
+        .slide-bg-5 {
+            background: linear-gradient(140deg, #1a1a2e 0%, #2C3E50 50%, #2d1b1b 100%);
+        }
+        .slide-bg-6 {
+            background: linear-gradient(155deg, #1a2533 0%, #1e2d3d 50%, #2a2a1e 100%);
+        }
+        .slide-bg-7 {
+            background: linear-gradient(145deg, #1a2533 0%, #2C3E50 40%, #1e2d3d 100%);
+        }
+        .slide-bg-8 {
+            background: linear-gradient(160deg, #1a2533 0%, #2d2a1e 60%, #2C3E50 100%);
+        }
+        .slide-bg-9 {
+            background: linear-gradient(135deg, #1a2533 0%, #2C3E50 50%, #1a1a2e 100%);
+        }
+
+        /* Decorative top accent bar */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--warm-amber), transparent);
+        }
+
+        /* Decorative bottom bar */
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(230, 126, 34, 0.3);
+        }
+
+        /* ─── TITLE SLIDE ─── */
+        .title-slide {
+            text-align: center;
+        }
+        .title-slide .overline {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            margin-bottom: 1.2em;
+        }
+        .title-slide h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2em;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--soft-white);
+            max-width: 900px;
+            margin-bottom: 0.6em;
+        }
+        .title-slide .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--warm-amber);
+            margin: 0.8em auto;
+        }
+        .title-slide .subtitle {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.15em;
+            font-weight: 300;
+            color: var(--muted-silver);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4em;
+        }
+        .title-slide .prepared-by {
+            font-family: 'Lato', sans-serif;
+            font-size: 1em;
+            font-weight: 400;
+            color: rgba(149, 165, 166, 0.75);
+            font-style: italic;
+        }
+
+        /* ─── SECTION SLIDES ─── */
+        .section-slide {
+            text-align: left;
+            align-items: flex-start;
+        }
+        .section-slide .section-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            margin-bottom: 0.8em;
+        }
+        .section-slide h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6em;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--soft-white);
+            max-width: 800px;
+            margin-bottom: 0.8em;
+        }
+        .section-slide .body-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(236, 240, 241, 0.88);
+            max-width: 780px;
+            margin-bottom: 1.2em;
+        }
+        .section-slide .accent-line {
+            width: 60px;
+            height: 3px;
+            background: var(--warm-amber);
+            margin-bottom: 1.4em;
+        }
+
+        /* ─── SCRIPTURE CALLOUT ─── */
+        .scripture-box {
+            background: rgba(230, 126, 34, 0.12);
+            border-left: 4px solid var(--warm-amber);
+            padding: 1em 1.5em;
+            margin: 1em 0;
+            max-width: 780px;
+            border-radius: 0 6px 6px 0;
+        }
+        .scripture-box .scripture-ref {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            margin-bottom: 0.4em;
+        }
+        .scripture-box .scripture-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05em;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--soft-white);
+        }
+
+        /* ─── QUOTE CALLOUT ─── */
+        .quote-box {
+            background: rgba(44, 62, 80, 0.6);
+            border: 1px solid rgba(149, 165, 166, 0.3);
+            padding: 1.2em 1.8em;
+            margin: 1em 0;
+            max-width: 780px;
+            border-radius: 8px;
+        }
+        .quote-box .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--soft-white);
+            margin-bottom: 0.5em;
+        }
+        .quote-box .quote-attr {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.82em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--warm-amber);
+        }
+
+        /* ─── TWO-COLUMN LAYOUT ─── */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            max-width: 1000px;
+            width: 100%;
+        }
+        .col-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(149, 165, 166, 0.2);
+            border-radius: 10px;
+            padding: 1.5em;
+        }
+        .col-card .card-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.82em;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            margin-bottom: 0.8em;
+        }
+        .col-card p {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95em;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(236, 240, 241, 0.88);
+        }
+        .col-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .col-card ul li {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.92em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(236, 240, 241, 0.88);
+            padding: 0.3em 0;
+            border-bottom: 1px solid rgba(149, 165, 166, 0.1);
+        }
+        .col-card ul li:last-child {
+            border-bottom: none;
+        }
+        .col-card ul li strong {
+            color: var(--warm-amber);
+        }
+
+        /* ─── THREE-COLUMN LAYOUT ─── */
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5em;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* ─── NUMBERED LIST ─── */
+        .numbered-list {
+            list-style: none;
+            padding: 0;
+            max-width: 780px;
+            width: 100%;
+        }
+        .numbered-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1em;
+            padding: 0.7em 0;
+            border-bottom: 1px solid rgba(149, 165, 166, 0.12);
+            font-family: 'Lato', sans-serif;
+            font-size: 1.0em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(236, 240, 241, 0.88);
+        }
+        .numbered-list li:last-child {
+            border-bottom: none;
+        }
+        .numbered-list li .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--warm-amber);
+            min-width: 1.5em;
+            line-height: 1.2;
+        }
+        .numbered-list li strong {
+            color: var(--soft-white);
+        }
+
+        /* ─── DISCUSSION QUESTIONS ─── */
+        .question-list {
+            list-style: none;
+            padding: 0;
+            max-width: 900px;
+            width: 100%;
+        }
+        .question-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1em;
+            padding: 0.8em 1em;
+            margin-bottom: 0.5em;
+            background: rgba(44, 62, 80, 0.5);
+            border-radius: 6px;
+            border-left: 3px solid var(--warm-amber);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.92em;
+            font-weight: 300;
+            line-height: 1.65;
+            color: rgba(236, 240, 241, 0.9);
+        }
+        .question-list li .q-num {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--warm-amber);
+            min-width: 1.8em;
+        }
+
+        /* ─── CLOSING SLIDE ─── */
+        .closing-slide {
+            text-align: center;
+        }
+        .closing-slide .closing-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.82em;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            margin-bottom: 1em;
+        }
+        .closing-slide h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--soft-white);
+            max-width: 800px;
+            margin-bottom: 0.8em;
+        }
+        .closing-slide .closing-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1em;
+            font-weight: 300;
+            line-height: 1.75;
+            color: rgba(236, 240, 241, 0.8);
+            max-width: 700px;
+            margin-bottom: 1.5em;
+        }
+        .closing-slide .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--warm-amber);
+            margin: 0.8em auto;
+        }
+
+        /* ─── SLIDE COUNTER ─── */
+        .slide-counter {
+            position: fixed;
+            bottom: 1.2em;
+            right: 1.8em;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.75em;
+            font-weight: 300;
+            color: rgba(149, 165, 166, 0.5);
+            letter-spacing: 0.1em;
+            z-index: 100;
+        }
+
+        /* ─── NAV HINT ─── */
+        .nav-hint {
+            position: fixed;
+            bottom: 1.2em;
+            left: 1.8em;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.72em;
+            font-weight: 300;
+            color: rgba(149, 165, 166, 0.4);
+            letter-spacing: 0.08em;
+            z-index: 100;
+        }
+
+        /* ─── SCRIPTURE TABLE ─── */
+        .scripture-table {
+            width: 100%;
+            max-width: 820px;
+            border-collapse: collapse;
+            margin-top: 0.8em;
+        }
+        .scripture-table th {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            padding: 0.6em 1em;
+            text-align: left;
+            border-bottom: 2px solid rgba(230, 126, 34, 0.4);
+        }
+        .scripture-table td {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9em;
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(236, 240, 241, 0.88);
+            padding: 0.6em 1em;
+            border-bottom: 1px solid rgba(149, 165, 166, 0.12);
+            vertical-align: top;
+        }
+        .scripture-table td:first-child {
+            font-weight: 700;
+            color: var(--soft-white);
+            white-space: nowrap;
+        }
+        .scripture-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ─── PROGRESS BAR ─── */
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--warm-amber);
+            transition: width 0.4s ease;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+<div class="deck">
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 1: TITLE
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-1 title-slide active">
+        <div class="overline">Elder Study Series &nbsp;·&nbsp; Atlanta North SDA Church</div>
+        <h1>Faith, Reason, and the Holy Spirit in Hermeneutics</h1>
+        <div class="divider"></div>
+        <div class="subtitle">John T. Baldwin &nbsp;|&nbsp; Adventist Hermeneutics</div>
+        <div class="prepared-by">Prepared by Elder Chukwuma I. Onyeije, MD, FACOG</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 2: THE CORE CONVICTION
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-2 section-slide">
+        <div class="section-label">Foundation</div>
+        <h2>The Core Conviction</h2>
+        <div class="accent-line"></div>
+        <p class="body-text">
+            The entire Bible is the propositional, infallible Word of God. What the text meant originally is, in principle, what it means today. Proper hermeneutics requires the integration of three essential elements:
+        </p>
+        <div class="three-col" style="max-width:900px;">
+            <div class="col-card">
+                <div class="card-title">Sanctified Reason</div>
+                <p>Human reason is central — but it must be renewed and transformed by the Spirit to become a trustworthy interpretive tool.</p>
+            </div>
+            <div class="col-card">
+                <div class="card-title">Living Faith</div>
+                <p>Faith and reason are complementary. When they conflict, Scripture takes priority over every human claim or system.</p>
+            </div>
+            <div class="col-card">
+                <div class="card-title">The Holy Spirit</div>
+                <p>The Spirit who inspired the Bible is the same Spirit who must illuminate it. He is not helpful — He is indispensable.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 3: THE PROBLEM — FALLEN REASON
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-3 section-slide">
+        <div class="section-label">Part 1 &nbsp;·&nbsp; Faith and Reason</div>
+        <h2>The Problem: Sin Has Damaged Human Reason</h2>
+        <div class="accent-line"></div>
+        <p class="body-text">
+            Hermeneutics is a rational process — but the biblical worldview holds that the Fall has impacted human rationality at its core. Unregenerate reason, left to itself, is structurally incapable of correctly interpreting the Word of God.
+        </p>
+        <div class="scripture-box">
+            <div class="scripture-ref">Jeremiah 17:9</div>
+            <div class="scripture-text">"The heart is deceitful above all things, and desperately wicked; who can know it?"</div>
+        </div>
+        <div class="scripture-box">
+            <div class="scripture-ref">1 Corinthians 2:14</div>
+            <div class="scripture-text">"The natural man receiveth not the things of the Spirit of God: for they are foolishness unto him; neither can he know them, because they are spiritually discerned."</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 4: THE SOLUTION — SANCTIFIED REASON
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-4 section-slide">
+        <div class="section-label">Part 1 &nbsp;·&nbsp; Faith and Reason</div>
+        <h2>The Solution: Sanctified Reason</h2>
+        <div class="accent-line"></div>
+        <div class="two-col">
+            <div>
+                <div class="scripture-box">
+                    <div class="scripture-ref">Romans 12:2</div>
+                    <div class="scripture-text">"Be transformed by the renewing of your mind, that you may prove what is that good and acceptable and perfect will of God."</div>
+                </div>
+                <div class="scripture-box" style="margin-top:1em;">
+                    <div class="scripture-ref">2 Corinthians 10:5</div>
+                    <div class="scripture-text">"Bringing every thought into captivity to the obedience of Christ."</div>
+                </div>
+            </div>
+            <div class="col-card" style="align-self:start;">
+                <div class="card-title">What Sanctified Reason Looks Like</div>
+                <ul>
+                    <li>Still thinks carefully and evaluates evidence</li>
+                    <li>Operates with humility and spiritual openness</li>
+                    <li>Submits to Scripture when conflicts arise</li>
+                    <li>Empowered by the Spirit (Titus 3:5)</li>
+                    <li>Refined by the grace of Christ (Ellen White)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 5: THE COSMIC CONFLICT
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-5 section-slide">
+        <div class="section-label">Part 2 &nbsp;·&nbsp; The Cosmic Context</div>
+        <h2>The Cosmic Conflict and Hermeneutics</h2>
+        <div class="accent-line"></div>
+        <p class="body-text">We do not study the Bible in a neutral environment. Supernatural beings actively seek to shape how human beings read Scripture.</p>
+        <div class="two-col">
+            <div class="col-card">
+                <div class="card-title">Holy Angels Assist</div>
+                <ul>
+                    <li>Gabriel sent to give Daniel understanding (Dan 8:16)</li>
+                    <li>Angels illuminated the resurrection (Luke 24:6-7)</li>
+                    <li>Assisted Luther and William Miller (Ellen White)</li>
+                    <li>Humble, prayerful study invites illumination</li>
+                </ul>
+            </div>
+            <div class="col-card">
+                <div class="card-title">Fallen Angels Corrupt</div>
+                <ul>
+                    <li>Deceiving spirits and doctrines of demons (1 Tim 4:1)</li>
+                    <li>Satan blinds the minds of unbelievers (2 Cor 4:3-4)</li>
+                    <li>Word opened without reverence invites error (GC 704-705)</li>
+                    <li>Our posture determines our assistant</li>
+                </ul>
+            </div>
+        </div>
+        <div class="quote-box" style="margin-top:1.2em;">
+            <div class="quote-text">"The spirit in which you come to the investigation of the Scriptures will determine the character of the assistant at your side."</div>
+            <div class="quote-attr">Ellen White &nbsp;·&nbsp; Testimonies to Ministers, 108</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 6: THE HOLY SPIRIT
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-6 section-slide">
+        <div class="section-label">Part 3 &nbsp;·&nbsp; The Holy Spirit</div>
+        <h2>The Indispensable Role of the Holy Spirit</h2>
+        <div class="accent-line"></div>
+        <p class="body-text">The Holy Spirit is not merely helpful in biblical interpretation. He is indispensable. Three dimensions of His work:</p>
+        <div class="three-col">
+            <div class="col-card">
+                <div class="card-title">He Guides</div>
+                <p>The Spirit of truth guides believers into all truth (John 16:13). This guidance is communal — guarding against isolated, charismatic interpretation.</p>
+            </div>
+            <div class="col-card">
+                <div class="card-title">He Transforms</div>
+                <p>The Spirit equips the interpreter with the mind of Christ (Phil 2:5). The carnal mind is enmity with God — the mind of Christ is its antidote.</p>
+            </div>
+            <div class="col-card">
+                <div class="card-title">He Illuminates</div>
+                <p>The Spirit brings to remembrance all that Jesus said (John 14:26), directing the comparison of scripture with scripture and rewarding the search.</p>
+            </div>
+        </div>
+        <div class="quote-box" style="margin-top:1.2em;">
+            <div class="quote-text">"It is the Holy Spirit's office to direct this search and to reward it."</div>
+            <div class="quote-attr">Ellen White &nbsp;·&nbsp; 1888 Materials, 4:1538</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 7: BALDWIN'S FOUR-POINT FRAMEWORK
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-7 section-slide">
+        <div class="section-label">Summary</div>
+        <h2>Baldwin's Four-Point Framework</h2>
+        <div class="accent-line"></div>
+        <p class="body-text">The Spirit's role in hermeneutics, summarized:</p>
+        <ul class="numbered-list">
+            <li>
+                <span class="num">1</span>
+                <span><strong>Guidance:</strong> The Holy Spirit guides the hermeneutical process from start to finish.</span>
+            </li>
+            <li>
+                <span class="num">2</span>
+                <span><strong>Transformation:</strong> Spirit baptism equips the interpreter with the mind of Christ — a softened, unveiled, and responsive mind.</span>
+            </li>
+            <li>
+                <span class="num">3</span>
+                <span><strong>Recall:</strong> The Spirit brings biblical truths and images to the mind of the interpreter during study.</span>
+            </li>
+            <li>
+                <span class="num">4</span>
+                <span><strong>Illumination:</strong> The Spirit illuminates the interpreter's mind with fresh, living meaning from the text.</span>
+            </li>
+        </ul>
+        <div class="quote-box" style="margin-top:1.2em; max-width:780px;">
+            <div class="quote-text">"Without the supernatural assistance of the Holy Spirit and heavenly angels, there can be no proper interpretation of the truths of Scripture, no matter how hard one engages the rational powers."</div>
+            <div class="quote-attr">John T. Baldwin</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 8: KEY SCRIPTURES
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-8 section-slide">
+        <div class="section-label">Reference</div>
+        <h2>Key Scriptures</h2>
+        <div class="accent-line"></div>
+        <table class="scripture-table">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Theme</th>
+                    <th>Text</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1 Cor 2:14</td>
+                    <td>Fallen Reason</td>
+                    <td>The natural man receives not the things of the Spirit.</td>
+                </tr>
+                <tr>
+                    <td>Rom 12:2</td>
+                    <td>Sanctified Reason</td>
+                    <td>Be transformed by the renewing of your mind.</td>
+                </tr>
+                <tr>
+                    <td>2 Cor 10:5</td>
+                    <td>Faith Over Reason</td>
+                    <td>Bring every thought into captivity to Christ.</td>
+                </tr>
+                <tr>
+                    <td>John 16:13</td>
+                    <td>Spirit Guides</td>
+                    <td>The Spirit will guide you into all truth.</td>
+                </tr>
+                <tr>
+                    <td>Phil 2:5</td>
+                    <td>Mind of Christ</td>
+                    <td>Let the mind of Christ be in you.</td>
+                </tr>
+                <tr>
+                    <td>John 14:26</td>
+                    <td>Spirit Illuminates</td>
+                    <td>The Holy Spirit will bring all things to your remembrance.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 9: DISCUSSION QUESTIONS
+    ═══════════════════════════════════════════ -->
+    <div class="slide slide-bg-9 section-slide">
+        <div class="section-label">Elder Discussion</div>
+        <h2>Reflect, Discuss, Apply</h2>
+        <div class="accent-line"></div>
+        <ul class="question-list">
+            <li>
+                <span class="q-num">Q1</span>
+                How does the distinction between unregenerate and sanctified reason shape how we approach our own Bible study and how we lead Sabbath School discussions?
+            </li>
+            <li>
+                <span class="q-num">Q2</span>
+                Our posture determines our assistant. How practically can elders cultivate and model the right posture in their own study and teaching?
+            </li>
+            <li>
+                <span class="q-num">Q3</span>
+                When a member brings an interpretation conflicting with Adventist doctrine, what does applying faith over reason look like pastorally — not authoritarianly?
+            </li>
+            <li>
+                <span class="q-num">Q4</span>
+                What does having the mind of Christ (Phil 2:5) look like practically in sermon or lesson preparation? How is it different from careful intellectual preparation alone?
+            </li>
+            <li>
+                <span class="q-num">Q5</span>
+                The Spirit guides a community, not isolated individuals. How does our eldership team function as a communal hermeneutical check on each other?
+            </li>
+        </ul>
+    </div>
+
+</div><!-- /.deck -->
+
+<!-- Slide Counter -->
+<div class="slide-counter" id="slideCounter">1 / 9</div>
+
+<!-- Nav Hint -->
+<div class="nav-hint">← → Arrow Keys &nbsp;|&nbsp; Space to Advance</div>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar" style="width: 11.11%;"></div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    const counter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        counter.textContent = (index + 1) + ' / ' + total;
+        progressBar.style.width = ((index + 1) / total * 100) + '%';
+    }
+
+    function nextSlide() {
+        if (currentSlide < total - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') {
+            event.preventDefault();
+            nextSlide();
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            prevSlide();
+        } else if (event.key === 'Home') {
+            event.preventDefault();
+            currentSlide = 0;
+            showSlide(currentSlide);
+        } else if (event.key === 'End') {
+            event.preventDefault();
+            currentSlide = total - 1;
+            showSlide(currentSlide);
+        }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            diff > 0 ? nextSlide() : prevSlide();
+        }
+    });
+
+    showSlide(currentSlide);
+</script>
+</body>
+</html>
