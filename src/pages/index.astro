@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'The Text and the Canon of Scripture',
+    description:
+      "A standalone elder study on Gerald Klingbeil's chapter about canon, textual transmission, translation, and Scripture's authority under Adventist theology.",
+    href: `${base}/presentations/the-text-and-the-canon-of-scripture/`,
+    tag: 'Elder Study Presentation',
+    meta: 'Standalone slideshow · 20 slides',
+  },
+  {
     title: 'Revelation and Inspiration',
     description:
       "A standalone elder-study presentation on Fernando Canale's doctrine of Scripture and why revelation and inspiration shape every Adventist act of interpretation.",
