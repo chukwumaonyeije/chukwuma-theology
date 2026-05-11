@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Revelation and Inspiration',
+    description:
+      "A standalone elder-study presentation on Fernando Canale's doctrine of Scripture and why revelation and inspiration shape every Adventist act of interpretation.",
+    href: `${base}/presentations/revelation-and-inspiration/`,
+    tag: 'Elder Study Presentation',
+    meta: 'Standalone slideshow · 15 slides',
+  },
+  {
     title: 'Faith, Reason, and the Holy Spirit in Hermeneutics',
     description:
       'A standalone elder study on sanctified reason, faithful interpretation, and why the Holy Spirit is indispensable in Adventist hermeneutics.',
