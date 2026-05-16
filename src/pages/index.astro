@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Adults Try, Children Trust',
+    description:
+      "Pastor Evan Knott's first sermon at Atlanta North Seventh-day Adventist Church, calling hearers from anxious striving into the childlike peace of belonging to Christ.",
+    href: `${base}/presentations/adults-try-children-trust/`,
+    tag: 'Sermon Presentation',
+    meta: 'Standalone slideshow · 18 slides · May 16, 2026',
+  },
+  {
     title: 'The Text and the Canon of Scripture',
     description:
       "A standalone elder study on Gerald Klingbeil's chapter about canon, textual transmission, translation, and Scripture's authority under Adventist theology.",
