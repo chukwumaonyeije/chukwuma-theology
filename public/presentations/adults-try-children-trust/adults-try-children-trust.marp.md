@@ -9,8 +9,6 @@ description: A Chukwuma Theology sermon presentation from Pastor Evan Knott's fi
 ---
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
-
 :root {
   --stone: #201915;
   --cave: #151d22;
@@ -23,17 +21,19 @@ description: A Chukwuma Theology sermon presentation from Pastor Evan Knott's fi
 }
 
 section {
-  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
   background:
     radial-gradient(circle at 78% 20%, rgba(214,171,85,0.28), transparent 32%),
     radial-gradient(circle at 20% 80%, rgba(200,117,50,0.18), transparent 34%),
     linear-gradient(135deg, var(--cave), var(--stone));
   color: var(--linen);
-  padding: 52px 72px;
+  padding: 32px 46px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  overflow: hidden;
 }
 
 section::after {
@@ -42,43 +42,43 @@ section::after {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 5px;
+  height: 4px;
   background: linear-gradient(90deg, var(--gold), var(--ember), var(--gold));
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: Georgia, "Times New Roman", serif;
   color: var(--linen);
-  margin: 0 0 0.22em 0;
-  line-height: 1.08;
+  margin: 0 0 10px 0;
+  line-height: 1.04;
   letter-spacing: 0;
 }
 
-h1 { font-size: 3rem; max-width: 920px; }
-h2 { font-size: 2.1rem; max-width: 900px; }
-h3 { font-size: 1.1rem; }
+h1 { font-size: 46px; max-width: 1040px; }
+h2 { font-size: 34px; max-width: 1040px; }
+h3 { font-size: 22px; }
 
 p {
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 20px;
+  line-height: 1.34;
   color: var(--linen);
-  margin: 0.25em 0 0.55em 0;
+  margin: 5px 0 10px 0;
 }
 
 ul {
   list-style: none;
   padding: 0;
-  margin: 0.5rem 0 0 0;
-  max-width: 820px;
+  margin: 8px 0 0 0;
+  max-width: 980px;
 }
 
 li {
   position: relative;
-  padding: 0.25em 0 0.25em 1.25em;
-  line-height: 1.45;
-  font-size: 1rem;
+  padding: 4px 0 4px 24px;
+  line-height: 1.24;
+  font-size: 20px;
 }
 
 li::before {
@@ -94,33 +94,34 @@ em { color: #e5b08e; }
 
 .eyebrow {
   color: var(--gold);
-  font-size: 0.72rem;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  margin-bottom: 0.9rem;
+  margin-bottom: 10px;
 }
 
 .accent-line {
-  width: 64px;
-  height: 4px;
+  width: 50px;
+  height: 3px;
   background: var(--gold);
-  margin: 0.55rem 0 1rem 0;
+  margin: 6px 0 12px 0;
 }
 
 .subtitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
   font-style: italic;
   color: var(--muted);
-  max-width: 760px;
+  max-width: 860px;
 }
 
 .credit,
 .reference {
   color: rgba(245,239,229,0.58);
-  font-size: 0.84rem;
-  letter-spacing: 0.05em;
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
 }
 
 section.title,
@@ -128,12 +129,13 @@ section.quote,
 section.blessing {
   text-align: center;
   align-items: center;
-  padding: 52px 104px;
+  padding: 34px 62px;
 }
 
 section.title h1 {
-  font-size: 3.4rem;
+  font-size: 52px;
   text-transform: uppercase;
+  max-width: 1080px;
 }
 
 section.title .accent-line {
@@ -150,7 +152,7 @@ section.light {
 section.split {
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
-  gap: 36px;
+  gap: 22px;
   align-items: center;
 }
 
@@ -158,7 +160,9 @@ section.split {
   background: rgba(16,22,26,0.62);
   border: 1px solid var(--line);
   border-left: 5px solid var(--gold);
-  padding: 22px 24px;
+  padding: 14px 18px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .panel.soft {
@@ -168,9 +172,9 @@ section.split {
 
 .grid {
   display: grid;
-  gap: 18px;
+  gap: 12px;
   width: 100%;
-  margin-top: 0.7rem;
+  margin-top: 10px;
 }
 
 .grid.two { grid-template-columns: 1fr 1fr; }
@@ -180,7 +184,8 @@ section.split {
   border: 1px solid var(--line);
   border-top: 4px solid var(--gold);
   border-radius: 8px;
-  padding: 20px 22px;
+  padding: 13px 16px;
+  box-sizing: border-box;
 }
 
 .card.alt {
@@ -190,30 +195,30 @@ section.split {
 
 .card h3,
 .label {
-  font-family: 'Inter', sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   color: var(--gold);
-  font-size: 0.78rem;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  margin: 0 0 0.65rem 0;
+  margin: 0 0 8px 0;
 }
 
 .statement {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.08rem;
-  line-height: 1.35;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  line-height: 1.14;
   font-weight: 700;
-  max-width: 900px;
+  max-width: 1040px;
 }
 
 section.quote .statement {
-  font-size: 2.18rem;
+  font-size: 38px;
   font-style: italic;
 }
 
 .small-list li {
-  font-size: 0.93rem;
+  font-size: 18px;
 }
 
 .wide {
@@ -221,21 +226,22 @@ section.quote .statement {
 }
 
 .application {
-  font-size: 1.42rem;
-  line-height: 1.45;
-  max-width: 860px;
+  font-size: 32px;
+  line-height: 1.2;
+  max-width: 980px;
 }
 
 .closing-summary {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  line-height: 1.28;
-  max-width: 880px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 40px;
+  line-height: 1.12;
+  max-width: 1040px;
 }
 
 .dim {
   color: var(--muted);
 }
+
 </style>
 
 <!-- _class: title -->
