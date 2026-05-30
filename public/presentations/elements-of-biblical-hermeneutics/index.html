@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2 — Elements of Biblical Hermeneutics</title>
+  <style>
+    :root {
+      --bg: #1a2744;
+      --accent: #c9a84c;
+      --text: #f0ece0;
+      --sub: #a8b4c8;
+      --dark: #0d1a3a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #111;
+      font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+      padding: 32px 16px;
+    }
+    .slide {
+      width: 960px;
+      height: 540px;
+      margin: 24px auto;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 72px 48px 80px;
+      border-radius: 10px;
+      box-shadow: 0 6px 40px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .accent-bar {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 7px;
+      background: var(--accent);
+    }
+    .slide-number {
+      position: absolute;
+      bottom: 18px; right: 28px;
+      color: var(--sub);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+    .slide h1 {
+      color: var(--accent);
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .slide h2 {
+      color: var(--accent);
+      font-size: 1.55rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .slide h3 {
+      color: var(--sub);
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .slide p {
+      color: var(--text);
+      font-size: 1.08rem;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .slide ul {
+      padding-left: 1.3em;
+      margin-top: 4px;
+    }
+    .slide li {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .slide .sub {
+      color: var(--sub);
+      font-size: 0.92rem;
+      margin-top: 10px;
+      font-style: italic;
+    }
+    .slide .verse {
+      color: var(--accent);
+      font-size: 1.15rem;
+      font-style: italic;
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin: 16px 0;
+      line-height: 1.6;
+    }
+    .slide .label {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+
+    /* Title slide */
+    .slide.title-slide {
+      background: linear-gradient(135deg, #1a2744 55%, #0d1a3a 100%);
+      padding-left: 80px;
+    }
+    .slide.title-slide h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .slide.title-slide .book-title {
+      color: var(--sub);
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+    .slide.title-slide .author {
+      color: var(--accent);
+      font-size: 1.0rem;
+      margin-top: 18px;
+    }
+    .slide.title-slide .date {
+      color: var(--sub);
+      font-size: 0.88rem;
+      margin-top: 6px;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    .two-col .col {
+      flex: 1;
+    }
+    .col-label {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.35);
+      padding-bottom: 4px;
+    }
+
+    /* Closing slide */
+    .slide.closing {
+      background: linear-gradient(135deg, #0d1a3a 40%, #1a2744 100%);
+      text-align: center;
+      align-items: center;
+      padding: 48px 80px;
+    }
+    .closing .big-quote {
+      color: var(--accent);
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 700px;
+      margin-bottom: 18px;
+    }
+    .closing .ref {
+      color: var(--sub);
+      font-size: 0.9rem;
+    }
+    .closing .next {
+      margin-top: 24px;
+      color: var(--sub);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide title-slide">
+    <div class="accent-bar"></div>
+    <p class="book-title">Biblical Hermeneutics: An Adventist Approach</p>
+    <h1>Elements of Biblical Hermeneutics<br>in Harmony with Scripture's Self-Claims</h1>
+    <p class="author">Frank M. Hasel — Chapter 2</p>
+    <p class="date">Elder Study Cohort | Atlanta North SDA Church | May 2026</p>
+    <div class="slide-number">1 / 15</div>
+  </div>
+
+  <!-- SLIDE 2: Chapter Overview -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Chapter Overview</h2>
+    <ul>
+      <li>No interpreter reads with a blank mind — presuppositions shape everything</li>
+      <li>The Bible's nature demands a method calibrated to its unique divine-human character</li>
+      <li>A faithful hermeneutic flows from Scripture's own self-testimony</li>
+    </ul>
+    <p class="sub">Central question: Are our interpretive presuppositions accountable to Scripture — or to the spirit of the age?</p>
+    <div class="slide-number">2 / 15</div>
+  </div>
+
+  <!-- SLIDE 3: Key Concept — The Object Determines the Method -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <div class="label">Key Concept</div>
+    <h2>The Object Determines the Method</h2>
+    <p>You cannot measure a sprint with a yardstick. You cannot analyze a poem by testing the ink.</p>
+    <p>The Bible — divinely breathed, humanly expressed — demands a method open to supernatural reality.</p>
+    <ul>
+      <li>Methods that assume God does not exist are ill-suited to their object</li>
+      <li>Adventist hermeneutics refuses <em>etsi Deus non daretur</em> — "as if God did not exist"</li>
+    </ul>
+    <div class="slide-number">3 / 15</div>
+  </div>
+
+  <!-- SLIDE 4: Key Concept — Christological Analogy -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <div class="label">Key Concept</div>
+    <h2>The Christological Analogy</h2>
+    <div class="verse">"The union of the divine and the human, manifest in Christ, exists also in the Bible." — Ellen G. White, Testimonies vol. 5</div>
+    <ul>
+      <li>Scripture is truly God's Word AND truly human language</li>
+      <li>Human context is real — it must be taken seriously</li>
+      <li>The divine authority is not canceled by human form</li>
+    </ul>
+    <div class="slide-number">4 / 15</div>
+  </div>
+
+  <!-- SLIDE 5: Section Deep Dive — Jesus and the Apostles -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>How Did Jesus View Scripture?</h2>
+    <ul>
+      <li>"It is written" — Jesus's response to every temptation (Matt. 4:4, 7, 10)</li>
+      <li>"Scripture cannot be broken" (John 10:35)</li>
+      <li>"If you do not believe Moses, how will you believe me?" (John 5:46–47)</li>
+    </ul>
+    <p class="sub">What Scripture says, God says. — John Stott</p>
+    <div class="slide-number">5 / 15</div>
+  </div>
+
+  <!-- SLIDE 6: Section Deep Dive — OT & NT Evidence -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Scripture's Own Self-Testimony</h2>
+    <div class="two-col">
+      <div class="col">
+        <p class="col-label">Old Testament</p>
+        <ul>
+          <li>God commanded writing: Moses, Jeremiah, Habakkuk</li>
+          <li>"The word of the LORD came to me" — foundational prophetic formula</li>
+          <li>Written word preserves, multiplies, and stabilizes revelation</li>
+        </ul>
+      </div>
+      <div class="col">
+        <p class="col-label">New Testament</p>
+        <ul>
+          <li>2 Tim. 3:16 — all Scripture God-breathed</li>
+          <li>2 Pet. 1:21 — not human will, but Holy Spirit</li>
+          <li>NT writings cited on par with OT (1 Tim. 5:18; 2 Pet. 3:16)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-number">6 / 15</div>
+  </div>
+
+  <!-- SLIDE 7: Section Deep Dive — Historical-Grammatical Method -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>The Historical-Grammatical Method</h2>
+    <ul>
+      <li>Prose is read as prose; poetry as poetry; parable as parable</li>
+      <li>Meaning is determined by the text itself — not an outside key</li>
+      <li>Hebrew, Aramaic, Greek grammar and context illuminate the text</li>
+      <li>Stands against both allegorism and naturalistic historical criticism</li>
+    </ul>
+    <p class="sub">Luther: "The Holy Spirit uses no more than the plain meaning of words."</p>
+    <div class="slide-number">7 / 15</div>
+  </div>
+
+  <!-- SLIDE 8: Section Deep Dive — Scripture Interprets Scripture -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Scripture Interprets Scripture (Tota Scriptura)</h2>
+    <div class="verse">"To the law and to the testimony! If they do not speak according to this word, it is because they have no dawn." — Isaiah 8:20</div>
+    <ul>
+      <li>The canon is the primary interpretive resource</li>
+      <li>New revelation is tested by established revelation</li>
+      <li>Difficult texts illuminated by clearer texts</li>
+      <li>Unity of Scripture flows from the unity of its divine Author</li>
+    </ul>
+    <div class="slide-number">8 / 15</div>
+  </div>
+
+  <!-- SLIDE 9: EGW / SDA Connection -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Ellen G. White &amp; the Adventist Distinctive</h2>
+    <ul>
+      <li>The Great Controversy frames hermeneutics: Satan first attacked the plain sense of God's Word</li>
+      <li>Scriptural skepticism is a slippery slope — <em>Selected Messages</em> 1:17–18</li>
+      <li>Holy Spirit as aid to Bible study — never to supersede it</li>
+      <li>EGW models a Scripture-shaped hermeneutic, not a magisterium that supplements it</li>
+    </ul>
+    <p class="sub">"The Spirit was not given to supersede the Bible; the Word of God is the standard by which all teaching must be tested." — EGW, <em>The Great Controversy</em></p>
+    <div class="slide-number">9 / 15</div>
+  </div>
+
+  <!-- SLIDE 10: Principle in Action -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Hermeneutical Principle in Action</h2>
+    <p><strong>Text:</strong> Genesis 2:1–3 (the Sabbath)</p>
+    <ul>
+      <li><strong>Historical-grammatical:</strong> Who wrote it? What did "rest" mean in Hebrew narrative?</li>
+      <li><strong>Canonical:</strong> How does Exodus 20:8–11, Isaiah 58:13, and Mark 2:27 illuminate this?</li>
+      <li><strong>Tota Scriptura:</strong> The Sabbath's meaning grows, but does not contradict, across the canon</li>
+      <li><strong>Obedient reading:</strong> Understanding is not complete until it shapes Sabbath practice</li>
+    </ul>
+    <div class="slide-number">10 / 15</div>
+  </div>
+
+  <!-- SLIDE 11: Discussion Questions Set A -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <div class="label">Discussion Questions</div>
+    <h2>For the Elder Cohort — Set A</h2>
+    <ul>
+      <li>What does "the method is determined by the object" mean for how we study the Bible?</li>
+      <li>What is the difference between historical-grammatical and allegorical interpretation?</li>
+      <li>How did Jesus model the authority of Scripture — and what does that look like for us?</li>
+      <li>Have you observed reader-response hermeneutics in Sabbath School? How do we correct it?</li>
+      <li>How does the Holy Spirit illuminate the Word without replacing it?</li>
+    </ul>
+    <div class="slide-number">11 / 15</div>
+  </div>
+
+  <!-- SLIDE 12: Discussion Questions Set B -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <div class="label">Discussion Questions</div>
+    <h2>For the Elder Cohort — Set B</h2>
+    <ul>
+      <li>How does the noetic effect of sin connect to the Great Controversy metanarrative?</li>
+      <li>Name an Adventist doctrine that depends on the tota Scriptura (canonical) method.</li>
+      <li>What does "the final word belongs to following" mean for elder leadership?</li>
+      <li>How would you respond to a church member who says "the Spirit told me" something that contradicts Scripture?</li>
+      <li>Faith requires sanctification of the intellect, not its sacrifice. What does that mean practically?</li>
+    </ul>
+    <div class="slide-number">12 / 15</div>
+  </div>
+
+  <!-- SLIDE 13: Important Biblical Ideas -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Five Biblical Presuppositions a Faithful Method Must Affirm</h2>
+    <ul>
+      <li><strong>God exists</strong> — assume it; do not argue it into every text</li>
+      <li><strong>God is supernatural</strong> — the method must be open to the transcendent</li>
+      <li><strong>God acts in history</strong> — predictive prophecy and miracles are real</li>
+      <li><strong>God is personal</strong> — He communicates propositionally in human language</li>
+      <li><strong>Sin distorts thinking</strong> — the Holy Spirit's illumination is essential</li>
+    </ul>
+    <div class="slide-number">13 / 15</div>
+  </div>
+
+  <!-- SLIDE 14: Key Takeaway -->
+  <div class="slide">
+    <div class="accent-bar"></div>
+    <h2>Key Takeaway</h2>
+    <div class="verse">"A hermeneutic that is faithful to Scripture is not a method imposed on the Bible from outside — it is a posture grown from within Scripture itself, shaped by what Jesus taught, what the apostles practiced, and what the text explicitly claims about its own origin and authority."</div>
+    <p>The method (historical-grammatical, canonical, Spirit-illumined, obedient) must answer to the object (the divinely-breathed, humanly-expressed Word of God).</p>
+    <div class="slide-number">14 / 15</div>
+  </div>
+
+  <!-- SLIDE 15: Closing -->
+  <div class="slide closing">
+    <div class="accent-bar"></div>
+    <p class="big-quote">"The final word in interpretation belongs to following."</p>
+    <p class="ref">— Kevin Vanhoozer, as cited by Frank M. Hasel, Chapter 2</p>
+    <p class="next">Next: Chapter 3 — The Role of the Holy Spirit and Community in Biblical Interpretation</p>
+    <div class="slide-number">15 / 15</div>
+  </div>
+
+</body>
+</html>

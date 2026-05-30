@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Elements of Biblical Hermeneutics',
+    description:
+      "A standalone elder study on Frank Hasel's Chapter 2 — how Scripture's own self-testimony demands a method open to the supernatural, anchored in the historical-grammatical approach, and accountable to the whole canon.",
+    href: `${base}/presentations/elements-of-biblical-hermeneutics/`,
+    tag: 'Elder Study Presentation',
+    meta: 'Standalone slideshow · 15 slides · May 2026',
+  },
+  {
     title: 'Biblical Hermeneutics: An Adventist Approach',
     description:
       'A standalone study on presuppositions, sola Scriptura, the Holy Spirit, and the disciplined practice of letting Scripture correct the reader.',
