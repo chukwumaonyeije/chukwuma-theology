@@ -64,38 +64,44 @@ for slide in slides:
 
 # Execute downloads
 for url, path in downloads:
-    if not os.path.exists(path):
+    # Always download code files to ensure rewriting starts from the fresh source
+    is_code = path.endswith(".html") or path.endswith(".css") or path.endswith(".js")
+    if is_code or not os.path.exists(path):
         download_file(url, path)
     else:
         print(f"File already exists: {path}")
 
-# Rewrite paths in index.html to be relative
+# Rewrite paths in index.html to use absolute subfolder paths
 html_path = os.path.join(output_dir, "index.html")
 print(f"Rewriting paths in {html_path}...")
 with open(html_path, "r", encoding="utf-8") as f:
     html_content = f.read()
 
-# Replace root-relative asset paths with relative paths
-html_content = html_content.replace('href="/assets/index-CgShepij.css"', 'href="assets/index-CgShepij.css"')
-html_content = html_content.replace('src="/assets/index-CjqF-Ml8.js"', 'src="assets/index-CjqF-Ml8.js"')
+# Replace root-relative asset paths with absolute subdirectory paths
+html_content = html_content.replace('href="/assets/index-CgShepij.css"', 'href="/chukwuma-theology/crossroads-destiny/assets/index-CgShepij.css"')
+html_content = html_content.replace('src="/assets/index-CjqF-Ml8.js"', 'src="/chukwuma-theology/crossroads-destiny/assets/index-CjqF-Ml8.js"')
 # Replace OG/Twitter image paths
-html_content = re.sub(r'content="https://files\.manuscdn\.com/webdev_screenshots/[^\"]+"', 'content="manus-storage/HBpaZfVxBEXJHVarL2FJsD.png"', html_content)
-# Replace canonical link to local or relative or keep it. Let's make it relative
+html_content = re.sub(r'content="https://files\.manuscdn\.com/webdev_screenshots/[^\"]+"', 'content="/chukwuma-theology/crossroads-destiny/manus-storage/HBpaZfVxBEXJHVarL2FJsD.png"', html_content)
+# Replace canonical link to local or keep it.
 html_content = html_content.replace('<link rel="canonical" href="https://crossroads-sa97qua4.manus.space/" />', '')
 
 with open(html_path, "w", encoding="utf-8") as f:
     f.write(html_content)
 
-# Rewrite paths in index.js to be relative
+# Rewrite paths in index.js to use absolute subfolder paths and set wouter base path
 js_path = os.path.join(output_dir, "assets", "index-CjqF-Ml8.js")
 print(f"Rewriting paths in {js_path}...")
 with open(js_path, "r", encoding="utf-8") as f:
     js_content = f.read()
 
-# Replace absolute "/manus-storage/..." references with relative "manus-storage/..."
-js_content = js_content.replace('"/manus-storage/', '"manus-storage/')
+# Configure the wouter router base path to match the deployed subdirectory path
+js_content = js_content.replace('base:""', 'base:"/chukwuma-theology/crossroads-destiny"')
+
+# Replace absolute "/manus-storage/..." references with subfolder absolute paths
+js_content = js_content.replace('"/manus-storage/', '"/chukwuma-theology/crossroads-destiny/manus-storage/')
 
 with open(js_path, "w", encoding="utf-8") as f:
     f.write(js_content)
 
 print("Scraping and relative path rewriting complete!")
+
