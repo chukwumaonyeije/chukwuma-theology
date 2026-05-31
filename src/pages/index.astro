@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'The Crossroads of Destiny',
+    description:
+      'A sermon on discipleship from Luke 5:1-11. Jesus meets us at the crossroads of our lives and calls us to follow Him into deeper waters.',
+    href: `${base}/crossroads-destiny/`,
+    tag: 'Sermon Presentation',
+    meta: 'Interactive website · 18 slides · Audio narration · May 30, 2026',
+  },
+  {
     title: 'Elements of Biblical Hermeneutics',
     description:
       "A standalone elder study on Frank Hasel's Chapter 2 — how Scripture's own self-testimony demands a method open to the supernatural, anchored in the historical-grammatical approach, and accountable to the whole canon.",
