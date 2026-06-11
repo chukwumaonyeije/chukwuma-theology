@@ -1,0 +1,380 @@
+---
+import presentationsData from '../../data/presentations.json';
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  return presentationsData.map((p) => ({
+    params: { slug: p.slug },
+    props: { presentation: p }
+  }));
+}
+
+const { presentation } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://chukwumaonyeije.github.io/chukwuma-theology';
+const canonicalUrl = `${siteUrl}/presentations/${presentation.slug}/`;
+
+// Fetch related blog posts
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const relatedPosts = allPosts.filter((post) => presentation.relatedPosts?.includes(post.slug));
+
+// Determine the full embed path
+const embedUrl = presentation.type === 'pdf'
+  ? `${base}${presentation.downloadUrl}`
+  : (presentation.url.startsWith('/') ? `${base}${presentation.url}` : presentation.url);
+
+// JSON-LD Schema for Presentation
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "PresentationDigitalDocument",
+  "name": presentation.title,
+  "description": presentation.description,
+  "author": {
+    "@type": "Person",
+    "name": "Dr. Chukwuma I. Onyeije",
+    "jobTitle": "MD, FACOG",
+    "url": "https://chukwumaonyeije.github.io/chukwuma-theology/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chukwuma Theology",
+    "url": siteUrl
+  },
+  "url": canonicalUrl,
+  "learningResourceType": "Presentation",
+  ...(presentation.downloadUrl ? { "downloadUrl": `https://chukwumaonyeije.github.io${base}${presentation.downloadUrl}` } : {})
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{presentation.title} — Study Presentation | Chukwuma Theology</title>
+    <meta name="description" content={presentation.description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={`${presentation.title} | Chukwuma Theology`} />
+    <meta property="og:description" content={presentation.description} />
+    <meta property="og:site_name" content="Chukwuma Theology" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={`${presentation.title} | Chukwuma Theology`} />
+    <meta property="twitter:description" content={presentation.description} />
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    <style>
+      .landing-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 0 20px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-bottom: 25px;
+        color: var(--secondary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: transform 0.2s ease;
+      }
+      .back-link:hover {
+        transform: translateX(-4px);
+      }
+      .pres-header {
+        margin-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 25px;
+      }
+      .pres-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: var(--primary);
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+      .pres-meta-tag {
+        display: inline-block;
+        background: #f0ece4;
+        color: var(--secondary);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 4px 12px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+      .pres-desc {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #444;
+        margin-bottom: 20px;
+      }
+      .pres-info-bar {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        display: flex;
+        gap: 15px;
+      }
+
+      /* Viewer Section */
+      .viewer-wrapper {
+        margin: 40px 0;
+        background-color: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+      .viewer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px 15px 15px;
+        border-bottom: 1px dashed var(--border);
+        margin-bottom: 15px;
+      }
+      .viewer-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--primary);
+      }
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--secondary);
+        color: var(--white) !important;
+        text-decoration: none !important;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background-color 0.2s;
+      }
+      .download-btn:hover {
+        background-color: #a35a3e;
+      }
+      .iframe-container {
+        position: relative;
+        width: 100%;
+        height: 550px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #e5e0d8;
+      }
+      iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Content Section */
+      .details-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        margin-top: 40px;
+      }
+      .transcript-section {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
+      .transcript-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        border-left: 4px solid var(--accent);
+        padding-left: 12px;
+      }
+      .transcript-content {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--text-dark);
+      }
+      .transcript-content p {
+        margin-bottom: 1.25rem;
+      }
+      .transcript-content ul, .transcript-content ol {
+        margin: 0 0 1.25rem 1.5rem;
+      }
+      .transcript-content li {
+        margin-bottom: 0.4rem;
+      }
+
+      /* Related Sidebar */
+      .sidebar-section {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+      .sidebar-card {
+        background-color: #f5f0e8;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 24px;
+      }
+      .sidebar-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+      .related-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .related-item-link {
+        display: block;
+        text-decoration: none;
+        color: var(--text-dark);
+        transition: color 0.2s;
+      }
+      .related-item-link h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        color: var(--primary);
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+      .related-item-link:hover h4 {
+        color: var(--secondary);
+      }
+      .related-item-link p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      @media (max-width: 768px) {
+        .details-layout {
+          grid-template-columns: 1fr;
+        }
+        .iframe-container {
+          height: 400px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <nav class="site-nav container">
+        <a href={base} class="logo">Chukwuma <span>Theology</span></a>
+        <ul class="nav-links">
+          <li><a href={`${base}#about`}>About</a></li>
+          <li><a href={`${base}/blog/`}>Reflections</a></li>
+          <li><a href={`${base}/presentations/`}>Presentations</a></li>
+          <li><a href="https://chukwumatheology.substack.com/" target="_blank" rel="noopener">Substack</a></li>
+          <li><a href={`${base}#contact`}>Connect</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="landing-container">
+      <a href={`${base}/presentations/`} class="back-link">&larr; Back to Presentations</a>
+
+      <div class="pres-header">
+        <span class="pres-meta-tag">{presentation.tag}</span>
+        <h1>{presentation.title}</h1>
+        <p class="pres-desc">{presentation.description}</p>
+        <div class="pres-info-bar">
+          <span>Format: <strong>{presentation.type === 'pdf' ? 'PDF Slide Document' : 'Marp Interactive Slides'}</strong></span>
+          <span>·</span>
+          <span>{presentation.meta}</span>
+        </div>
+      </div>
+
+      <!-- Presentation Embedded Viewer -->
+      <div class="viewer-wrapper">
+        <div class="viewer-header">
+          <span class="viewer-title">Interactive Viewer Preview</span>
+          {presentation.downloadUrl && (
+            <a href={`${base}${presentation.downloadUrl}`} download class="download-btn">
+              📥 Download File
+            </a>
+          )}
+        </div>
+        <div class="iframe-container">
+          {presentation.type === 'pdf' ? (
+            <embed src={embedUrl} type="application/pdf" width="100%" height="100%" />
+          ) : (
+            <iframe src={embedUrl} title={presentation.title} allowfullscreen></iframe>
+          )}
+        </div>
+      </div>
+
+      <div class="details-layout">
+        <!-- Transcript/Summary Block -->
+        <section class="transcript-section">
+          <h2>Presentation Summary & Outline</h2>
+          <div class="transcript-content">
+            {presentation.transcript ? (
+              <div set:html={presentation.transcript.replace(/\n/g, '<br/>')} />
+            ) : (
+              <p>No full transcript available for this presentation. Download the presentation using the button above to view complete slides.</p>
+            )}
+          </div>
+        </section>
+
+        <!-- Sidebar with Related Posts -->
+        <div class="sidebar-section">
+          <div class="sidebar-card">
+            <h3>Related Reflections</h3>
+            {relatedPosts.length > 0 ? (
+              <ul class="related-list">
+                {relatedPosts.map((post) => (
+                  <li>
+                    <a href={`${base}/posts/${post.slug}/`} class="related-item-link">
+                      <h4>{post.data.title}</h4>
+                      <p>{post.data.description}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">No related blog posts available for this presentation.</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2026 Chukwuma I. Onyeije, MD. Faith-based reflections for a modern world.</p>
+      </div>
+    </footer>
+
+  </body>
+</html>

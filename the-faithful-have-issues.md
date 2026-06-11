@@ -1,0 +1,89 @@
+# The Faithful Have Issues. I See Them Every Week.
+
+*A response to Ron Coffen's "You've Got Issues!" — from the delivery room and the elder's bench.*
+
+---
+
+I want to ask you something before you read another word.
+
+When was the last time someone in your church admitted, out loud, to being depressed? Not "going through a season." Not "under attack." Depressed. Clinically, persistently, can't-get-out-of-bed depressed.
+
+If you can't remember, it's not because your congregation is unusually healthy. It's because we have built churches where the faithful hide their suffering — because somewhere along the way we taught them that distress is a symptom of weak faith.
+
+Ron Coffen's recent piece in *Adventist Review*, "You've Got Issues!", asks whether the faithful can experience mental health issues. As a psychologist, he answers from Scripture: definitively, yes. I want to add my own answer — from two rooms where I spend my life. One is a consultation room at Atlanta Perinatal Associates, where I practice maternal-fetal medicine. The other is the elder's bench at my church. The answer from both rooms is the same. And it is more urgent than most of us realize.
+
+## The Presenting Symptom
+
+Let me begin where all good diagnosis begins: with the presenting symptom.
+
+CDC Maternal Mortality Review Committee data show that mental health conditions, including suicide and overdose, are the leading cause of pregnancy-related death in the United States, accounting for about 23% of cases. That means too many mothers are dying from causes that are often preventable, and it is a reminder that mental health support must be part of prenatal and postpartum care. Churches, families, and communities can help by reducing stigma, encouraging screening, and making sure pregnant and postpartum women know where to get help.
+
+And here is the finding that haunts me: the review committees judged those mental health deaths to be essentially 100 percent preventable.
+
+Preventable means somebody could have intervened. Somebody could have asked. Somebody could have noticed. In my world, "preventable death" is the heaviest phrase in the chart. It means the system failed — and the church, beloved, is part of the system.
+
+I take care of high-risk pregnancies. I have sat across from women of deep, articulate, Sabbath-keeping faith who waited months to tell anyone about the darkness that moved in after delivery — not because they didn't know something was wrong, but because they had absorbed a theology that said Christians don't break this way. One of them said it to me almost word for word: "I have Jesus. I shouldn't feel like this."
+
+That sentence is not faith. That sentence is a symptom — of bad theology doing real damage.
+
+## The False Syllogism
+
+The damage runs on a quiet little syllogism that has never been preached from our pulpits in so many words but is absorbed in a thousand smaller ways:
+
+Faith produces peace. You do not have peace. Therefore you do not have faith.
+
+It sounds almost biblical. It is actually a lie with a Bible verse stapled to it — and Coffen's article dismantles it the right way, by walking through Hebrews 11. The faith chapter is not a gallery of the unbothered. Abel was murdered. Jacob grieved a son for decades. Joseph wept. Moses was so overwhelmed his father-in-law staged what we would now call an intervention. David — the man after God's own heart — left us a hymnal full of clinical language: "my spirit is overwhelmed within me; my heart within me is distressed" (Ps. 143:4). If David walked into my office and read me Psalm 143 as a symptom history, I would screen him for major depressive disorder. I would not question his faith. God didn't either.
+
+And then there is Elijah. One chapter after fire falls from heaven, the prophet is under a broom tree asking God to take his life. Suicidal ideation, in the modern vocabulary — in the strongest man of faith of his generation, hours after his greatest spiritual victory. Notice carefully what God does next, because Ellen White lingers here in *Prophets and Kings*: no rebuke. No sermon. God sends an angel with food, and lets Elijah sleep, and feeds him again — and only later, gently, asks him a question. The first divine intervention for a suicidal prophet was a meal and a nap.
+
+The Creator of the human nervous system treated Elijah's despair as a whole-person problem requiring whole-person care. Body first. Then conversation. Then recommissioning.
+
+Elijah was not faithless. He was exhausted. God knew the difference. We should too.
+
+## What the Great Controversy Actually Predicts
+
+Here is where I want to push beyond comfort and into our own Adventist framework, because I think we have been reading it selectively.
+
+The great controversy worldview — the lens through which Adventists read everything — does not predict that the faithful will be spared distress. It predicts the opposite. We are six thousand years into a war zone. Hundreds of generations removed from Eden, every system in the human body carries the accumulating toll of sin's entropy — and I mean *every* system. We accept this instantly for the pancreas. When a faithful church member develops diabetes, no one tells her that insulin is a failure of trust in God. I prescribe insulin to pregnant women with gestational diabetes every week of my life, and not once has an elder called to express concern for their souls.
+
+But the brain is an organ. It runs on the same compromised biology as the pancreas. Neurotransmitters are not more spiritual than blood glucose. When the organ that generates mood and thought malfunctions in a fallen world, that is not apostasy — it is anatomy. Coffen's framework of long-standing factors, triggers, and maintaining factors is, almost point for point, the risk-factor model I use clinically: predisposition, precipitant, perpetuation. The same fallen biology, the same legible patterns, the same call to intervene.
+
+Ellen White said it in one sentence we quote far too rarely: "The relation that exists between the mind and the body is very intimate. When one is affected, the other sympathizes" (*The Ministry of Healing*, p. 241). She wrote that in 1905. It took the rest of medicine most of a century to catch up.
+
+This is not secular psychology invading the church. This is the church remembering its own theology.
+
+## The One I Lose Sleep Over
+
+I need to be honest about something, because the diagnosis I've laid out implicates me.
+
+I am the person people are not supposed to see struggle. The physician. The elder. The one who stands up front on Sabbath morning and prays for everyone else. There is a particular temptation that comes with those roles — the temptation to believe that being the strong one is a form of faithfulness, and that admitting the weight is a form of failure. I have felt the fatigue that doesn't resolve with rest. I have driven home from the hospital after a bad outcome and sat in the driveway, unable to go inside, running the case on a loop. I have stood in the pulpit within days of standing at a bedside where everything went wrong, and said nothing about it to anyone.
+
+That silence is not strength. I am slowly learning that it is the same silence that kept my patient from telling anyone about her darkness for months. The elder who cannot say "I am struggling" is discipling his congregation in concealment — teaching them, without a word, that the faithful do not break. And the data tells us exactly where that teaching ends. It ends in preventable deaths.
+
+Dolly — the pastor's wife in Coffen's article — got better through counseling, medication, diet, exercise, *and* prayer. Not prayer instead of treatment. Prayer alongside it. That conjunction, that little word "and," is a complete theology of healing. We are the church that built sanitariums on it. We are the people of Loma Linda, the denomination that has insisted for 160 years that the gospel addresses the whole person. Of all communities on earth, ours should be the safest place to say "I'm not okay."
+
+So often, it is the hardest.
+
+## A Prescription
+
+I am a physician, so I will end the way I end every consultation — with a plan. Not vague exhortation. A plan.
+
+**Say it from the front.** Once a quarter, minimum, someone with authority in your congregation should say out loud: depression is not a sin, anxiety is not weak faith, and medication is not a failure of trust in God. Elders, this is our job. The silence will not break itself, and it certainly will not be broken by the people suffering inside it.
+
+**Ask the direct question.** When a new mother in your congregation goes quiet — stops coming, stops singing, smiles too carefully — do not wait. Ask her, privately and plainly, how she is really doing. The entire science of perinatal mental health screening reduces to one act: asking before the crisis. In my field we use a validated questionnaire. In yours, a casserole and an unhurried question will do.
+
+**Refer like you mean it.** "I'll pray for you" and "you should talk to someone" can live in the same sentence. Know a Christian counselor's name. Keep it in your phone. Prayer and Prozac are not rivals; they are colleagues, and a faithful pancreas-and-insulin church can become a faithful brain-and-treatment church.
+
+**Feed people before you fix them.** God's first response to a suicidal prophet was food and sleep. Before the theology, before the advice, before the Bible study — presence, bread, rest. Go and do likewise.
+
+The great controversy is real, and the battlefield runs through human bodies — every organ, including the three pounds behind the eyes. The faithful have issues. They always have. God wrote their names in Hebrews 11 anyway.
+
+The question was never whether the faithful suffer. The question is whether the church will be safe enough that they can say so out loud — and whether you and I will be the kind of people they can say it to.
+
+Elijah got a meal and a nap before he got a sermon.
+
+Start there.
+
+---
+
+*Chukwuma Onyeije, MD, FACOG, is a maternal-fetal medicine specialist at Atlanta Perinatal Associates and an elder at Atlanta North Seventh-day Adventist Church. If you are struggling, you are not faithless — and you are not alone. Talk to someone this week: a physician, a counselor, a pastor who has read this far.*

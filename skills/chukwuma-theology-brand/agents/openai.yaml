@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chukwuma Theology Brand"
+  short_description: "Adventist theology voice and essay system"
+  default_prompt: "Use $chukwuma-theology-brand to turn this biblical idea, sermon, or draft into a clear pastoral piece in Dr. Onyeije's Adventist physician-theologian voice."

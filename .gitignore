@@ -4,3 +4,20 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Local workspace/app state
+.claude/
+.obsidian/
+**/.claude/
+**/.obsidian/
+
+# Temporary Office lock files
+~$*
+**/~$*
+
+# Local secrets and copied credentials
+*API key*.txt
+*api key*.txt
+*secret*.txt
+*token*.txt
+*credential*.txt

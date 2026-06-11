@@ -19,10 +19,13 @@ const { Content } = await post.render();
   title={post.data.title}
   description={post.data.description}
   date={post.data.date}
+  updated={post.data.updated}
   tags={post.data.tags}
+  category={post.data.category}
   audioUrl={post.data.audioUrl}
   image={post.data.image}
   slug={post.slug}
+  substackUrl={post.data.substackUrl}
 >
   <Content />
 </PostLayout>

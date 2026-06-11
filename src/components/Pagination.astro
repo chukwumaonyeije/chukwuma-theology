@@ -1,0 +1,135 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  prevUrl?: string | null;
+  nextUrl?: string | null;
+  baseUrl: string; // e.g. "/blog" or "/presentations"
+}
+
+const { currentPage, totalPages, prevUrl, nextUrl, baseUrl } = Astro.props;
+
+// Helper to construct page links correctly
+const getPageLink = (pageNumber: number) => {
+  if (pageNumber === 1) {
+    return baseUrl;
+  }
+  return `${baseUrl}/page/${pageNumber}/`;
+};
+
+// Generate list of page numbers to show
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+<nav class="pagination" aria-label="Pagination Navigation">
+  {prevUrl ? (
+    <a href={prevUrl} class="pagination-arrow" aria-label="Go to previous page">
+      &larr; Prev
+    </a>
+  ) : (
+    <span class="pagination-arrow disabled" aria-disabled="true">
+      &larr; Prev
+    </span>
+  )}
+
+  <ul class="pagination-list">
+    {pages.map((pageNumber) => {
+      const isCurrent = pageNumber === currentPage;
+      return (
+        <li>
+          {isCurrent ? (
+            <span class="pagination-link current" aria-current="page">
+              {pageNumber}
+            </span>
+          ) : (
+            <a
+              href={getPageLink(pageNumber)}
+              class="pagination-link"
+              aria-label={`Go to page ${pageNumber}`}
+            >
+              {pageNumber}
+            </a>
+          )}
+        </li>
+      );
+    })}
+  </ul>
+
+  {nextUrl ? (
+    <a href={nextUrl} class="pagination-arrow" aria-label="Go to next page">
+      Next &rarr;
+    </a>
+  ) : (
+    <span class="pagination-arrow disabled" aria-disabled="true">
+      Next &rarr;
+    </span>
+  )}
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 50px 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .pagination-list {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .pagination-link,
+  .pagination-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    background-color: var(--white);
+  }
+
+  .pagination-link:hover,
+  .pagination-arrow:not(.disabled):hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .pagination-link.current {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .pagination-arrow.disabled {
+    color: var(--text-muted);
+    border-color: var(--border);
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: transparent;
+  }
+
+  @media (max-width: 600px) {
+    .pagination {
+      gap: 10px;
+    }
+    .pagination-list {
+      display: none; /* Hide page numbers on mobile for simplicity, keep arrows */
+    }
+  }
+</style>

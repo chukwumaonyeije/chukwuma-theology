@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import '../styles/global.css';
 import '../styles/post.css';
 import AudioPlayer from '../components/AudioPlayer.astro';
@@ -7,14 +8,31 @@ export interface Props {
   title: string;
   description: string;
   date: Date;
+  updated?: Date;
   tags?: string[];
+  category?: string;
   audioUrl?: string;
   image?: { url: string; alt: string };
   slug?: string;
+  substackUrl?: string;
 }
 
-const { title, description, date, tags, audioUrl, image, slug } = Astro.props;
-const rssUrl = slug ? `https://chukwumaonyeije.github.io/chukwuma-theology/rss/${slug}.xml` : null;
+const { 
+  title, 
+  description, 
+  date, 
+  updated, 
+  tags, 
+  category, 
+  audioUrl, 
+  image, 
+  slug, 
+  substackUrl 
+} = Astro.props;
+
+const siteUrl = 'https://chukwumaonyeije.github.io/chukwuma-theology';
+const canonicalUrl = slug ? `${siteUrl}/posts/${slug}/` : siteUrl;
+const rssUrl = slug ? `${siteUrl}/rss/${slug}.xml` : null;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -22,7 +40,64 @@ const formattedDate = date.toLocaleDateString('en-US', {
   day: 'numeric',
 });
 
+const formattedUpdatedDate = updated ? updated.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}) : null;
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// ── RELATED POSTS SELECTION LOGIC ───────────────────
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== slug)
+  .map((p) => {
+    let score = 0;
+    if (category && p.data.category === category) score += 5;
+    if (tags && p.data.tags) {
+      const commonTags = tags.filter(t => p.data.tags?.includes(t));
+      score += commonTags.length * 2;
+    }
+    return { post: p, score };
+  })
+  .filter((item) => item.score > 0)
+  .sort((a, b) => b.score - a.score || b.post.data.date.valueOf() - a.post.data.date.valueOf())
+  .slice(0, 3)
+  .map((item) => item.post);
+
+const fallbackPosts = allPosts
+  .filter((p) => p.slug !== slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const displayRelated = relatedPosts.length > 0 ? relatedPosts : fallbackPosts;
+
+// ── JSON-LD ARTICLE SCHEMA ──────────────────────────
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "datePublished": date.toISOString(),
+  ...(updated ? { "dateModified": updated.toISOString() } : {}),
+  "author": {
+    "@type": "Person",
+    "name": "Dr. Chukwuma I. Onyeije",
+    "jobTitle": "MD, FACOG",
+    "url": "https://chukwumaonyeije.github.io/chukwuma-theology/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chukwuma Theology",
+    "url": siteUrl
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  ...(image ? { "image": image.url.startsWith('http') ? image.url : `https://chukwumaonyeije.github.io${image.url}` } : {})
+};
 ---
 
 <!doctype html>
@@ -32,9 +107,38 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} — Chukwuma Theology</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={`${title} — Chukwuma Theology`} />
+    <meta property="og:description" content={description} />
+    {image && <meta property="og:image" content={image.url.startsWith('http') ? image.url : `https://chukwumaonyeije.github.io${image.url}`} />}
+    <meta property="article:published_time" content={date.toISOString()} />
+    {updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+    <meta property="article:author" content="Dr. Chukwuma I. Onyeije" />
+    {category && <meta property="article:section" content={category} />}
+    {tags && tags.map(tag => <meta property="article:tag" content={tag} />)}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={`${title} — Chukwuma Theology`} />
+    <meta property="twitter:description" content={description} />
+    {image && <meta property="twitter:image" content={image.url.startsWith('http') ? image.url : `https://chukwumaonyeije.github.io${image.url}`} />}
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
 
@@ -43,7 +147,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <a href={base} class="logo">Chukwuma <span>Theology</span></a>
         <ul class="nav-links">
           <li><a href={`${base}#about`}>About</a></li>
-          <li><a href={`${base}#studies`}>Bible Studies</a></li>
+          <li><a href={`${base}/blog/`}>Reflections</a></li>
+          <li><a href={`${base}#presentations`}>Presentations</a></li>
           <li><a href="https://chukwumatheology.substack.com/" target="_blank" rel="noopener">Substack</a></li>
           <li><a href={`${base}#contact`}>Connect</a></li>
         </ul>
@@ -62,7 +167,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <p class="post-description">{description}</p>
         <div class="post-meta">
           <time datetime={date.toISOString()}>{formattedDate}</time>
-          <span> · Chukwuma Onyeije</span>
+          {formattedUpdatedDate && (
+            <span> (Updated: <time datetime={updated.toISOString()}>{formattedUpdatedDate}</time>)</span>
+          )}
+          <span> · Dr. Chukwuma I. Onyeije</span>
         </div>
         {tags && tags.length > 0 && (
           <div class="tags">
@@ -76,16 +184,50 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="prose">
         <slot />
       </div>
-    </article>
 
-    {rssUrl && (
-      <div class="post-rss-link container">
-        <p>
-          <strong>Substack RSS for this post:</strong><br />
-          <a href={rssUrl} target="_blank" rel="noopener">{rssUrl}</a>
-        </p>
-      </div>
-    )}
+      <!-- Related Posts Section -->
+      {displayRelated.length > 0 && (
+        <section class="related-posts">
+          <hr />
+          <h3>Related Reflections</h3>
+          <div class="related-posts-grid">
+            {displayRelated.map((p) => (
+              <a href={`${base}/posts/${p.slug}/`} class="related-post-card">
+                <h4>{p.data.title}</h4>
+                <p>{p.data.description}</p>
+                <time datetime={p.data.date.toISOString()}>
+                  {p.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </time>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Substack Reference Block -->
+      {substackUrl && (
+        <div class="substack-callout">
+          <div class="substack-callout-icon">✉️</div>
+          <div class="substack-callout-content">
+            <h4>Join the Conversation on Substack</h4>
+            <p>This post was also published on Substack. Read the full discussion, write comments, and join other readers there.</p>
+            <a href={substackUrl} target="_blank" rel="noopener noreferrer" class="substack-callout-btn">
+              Read and Discuss on Substack &rarr;
+            </a>
+          </div>
+        </div>
+      )}
+
+      <!-- Per-Post RSS Link -->
+      {rssUrl && (
+        <div class="post-rss-link">
+          <p>
+            <strong>Substack RSS for this post:</strong><br />
+            <a href={rssUrl} target="_blank" rel="noopener">{rssUrl}</a>
+          </p>
+        </div>
+      )}
+    </article>
 
     <footer class="site-footer">
       <div class="container">
@@ -93,5 +235,109 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </footer>
 
+    <style>
+      /* Related Posts Styling */
+      .related-posts {
+        margin-top: 3rem;
+      }
+      .related-posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 1.5rem;
+      }
+      .related-post-card {
+        background-color: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        text-decoration: none !important;
+        color: var(--text-dark) !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .related-post-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-color: var(--secondary);
+      }
+      .related-post-card h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: var(--primary);
+        line-height: 1.3;
+      }
+      .related-post-card p {
+        font-size: 0.85rem !important;
+        color: #555;
+        margin-bottom: 15px !important;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .related-post-card time {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      /* Substack Callout Box Styling */
+      .substack-callout {
+        display: flex;
+        gap: 20px;
+        background-color: #faf6f0;
+        border: 1px solid #ebdcc5;
+        border-left: 5px solid var(--secondary);
+        border-radius: 8px;
+        padding: 24px;
+        margin: 3rem 0 2rem 0;
+        align-items: flex-start;
+      }
+      .substack-callout-icon {
+        font-size: 2rem;
+        line-height: 1;
+      }
+      .substack-callout-content h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        color: var(--primary);
+        margin: 0 0 8px 0;
+      }
+      .substack-callout-content p {
+        font-size: 0.95rem;
+        color: var(--text-dark);
+        margin: 0 0 16px 0 !important;
+      }
+      .substack-callout-btn {
+        display: inline-block;
+        background-color: var(--secondary);
+        color: var(--white) !important;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+      .substack-callout-btn:hover {
+        background-color: #a35a3e;
+        transform: translateY(-1px);
+      }
+      @media (max-width: 600px) {
+        .substack-callout {
+          flex-direction: column;
+          gap: 12px;
+          padding: 16px;
+        }
+        .substack-callout-icon {
+          display: none;
+        }
+      }
+    </style>
   </body>
 </html>
