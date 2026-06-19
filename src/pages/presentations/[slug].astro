@@ -17,7 +17,7 @@ const canonicalUrl = `${siteUrl}/presentations/${presentation.slug}/`;
 
 // Fetch related blog posts
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const relatedPosts = allPosts.filter((post) => presentation.relatedPosts?.includes(post.slug));
+const relatedPosts = allPosts.filter((post) => presentation.relatedPosts?.includes(post.id.replace(/\.mdx?$/, '')));
 
 // Determine the full embed path
 const embedUrl = presentation.type === 'pdf'
@@ -355,7 +355,7 @@ const schema = {
               <ul class="related-list">
                 {relatedPosts.map((post) => (
                   <li>
-                    <a href={`${base}/posts/${post.slug}/`} class="related-item-link">
+                    <a href={`${base}/posts/${post.id.replace(/\.mdx?$/, '')}/`} class="related-item-link">
                       <h4>{post.data.title}</h4>
                       <p>{post.data.description}</p>
                     </a>

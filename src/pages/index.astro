@@ -291,7 +291,7 @@ const featuredPresentations = [
                   <div class="card-meta">
                     {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </div>
-                  <a href={`${base}/posts/${post.slug}/`} class="read-more">Read More →</a>
+                  <a href={`${base}/posts/${post.id.replace(/\.mdx?$/, '')}/`} class="read-more">Read More →</a>
                 </div>
               </article>
             ))}

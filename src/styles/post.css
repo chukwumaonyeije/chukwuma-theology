@@ -126,6 +126,54 @@ h1 {
   color: var(--text-muted);
 }
 
+/* ── Callout boxes ──────────────────────────────── */
+.callout {
+  border-left: 4px solid var(--border);
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.callout strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Insight — warm parchment, gold accent */
+.callout-insight {
+  background: #faf6ed;
+  border-left-color: var(--accent);
+}
+
+.callout-insight strong {
+  color: #8a6e1e;
+}
+
+/* Theology — deep green, sanctuary tone */
+.callout-theology {
+  background: #f0f4f1;
+  border-left-color: var(--primary);
+}
+
+.callout-theology strong {
+  color: var(--primary);
+}
+
+/* Pastoral — soft blue-grey, personal register */
+.callout-pastoral {
+  background: #f2f4f7;
+  border-left-color: #6b82a0;
+}
+
+.callout-pastoral strong {
+  color: #3d5370;
+}
+
 /* ── Per-post RSS link (for Substack import) ─────── */
 .post-rss-link {
   margin: 2rem auto;
