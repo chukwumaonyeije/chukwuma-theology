@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share Him — Growing in a Relationship With God | Sabbath School Lesson 12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:        #071a2d;
+      --navy-2:      #0c2b46;
+      --navy-3:      #0f3358;
+      --gold:        #c8963e;
+      --gold-lt:     #e8b85a;
+      --gold-dim:    #b07c2a;
+      --ivory:       #f5f1e8;
+      --white:       #ffffff;
+      --muted:       #b0a898;
+      --muted-dim:   rgba(176,168,152,0.55);
+      --border:      rgba(200,150,62,0.25);
+      --slide-w: 1280px;
+      --slide-h: 720px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #020d18;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Deck wrapper ── */
+    #deck {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    #viewport {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      transform-origin: center center;
+    }
+
+    /* ── Slide base ── */
+    .slide {
+      position: absolute; inset: 0;
+      width: var(--slide-w); height: var(--slide-h);
+      display: none; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 56px 80px;
+      background: linear-gradient(150deg, var(--navy) 0%, var(--navy-2) 70%, #061321 100%);
+      color: var(--ivory);
+      overflow: hidden;
+      font-size: 20px;
+    }
+    .slide.active { display: flex; }
+
+    /* Decorative inner border */
+    .slide::before {
+      content: '';
+      position: absolute; inset: 18px;
+      border: 1px solid var(--border);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Gold bottom bar */
+    .slide::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold-lt), var(--gold-dim));
+    }
+
+    .slide > * { position: relative; z-index: 1; }
+
+    /* ── Typography ── */
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 0.3em;
+    }
+    h1 { font-size: 4.2rem; font-weight: 700; }
+    h2 { font-size: 2.8rem; font-weight: 700; }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 400; font-style: italic;
+      color: var(--muted); line-height: 1.4;
+    }
+    p  { font-size: 1rem; line-height: 1.65; color: var(--ivory); }
+    strong { color: var(--gold-lt); font-weight: 700; }
+    em    { color: var(--gold-lt); font-style: italic; }
+
+    .gold { color: var(--gold-lt); }
+    .muted { color: var(--muted); }
+
+    /* Kicker / eyebrow */
+    .kicker {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 0.8rem;
+    }
+
+    /* Accent rule */
+    .rule {
+      width: 64px; height: 4px;
+      background: var(--gold); border-radius: 2px;
+      margin: 0.7rem 0 1.1rem;
+    }
+
+    /* Horizontal divider */
+    .divider {
+      width: 100%; height: 1px;
+      background: var(--border); margin: 0.5rem 0;
+    }
+
+    /* Cross-header decoration */
+    .cross-header {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 1rem;
+    }
+    .cross-header::before, .cross-header::after {
+      content: ''; flex: 0 0 40px; height: 1px;
+      background: var(--gold-lt); opacity: 0.4;
+    }
+
+    /* ── Quote box ── */
+    .quote-box {
+      background: rgba(245,241,232,0.05);
+      border: 1px solid rgba(200,150,62,0.3);
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin-top: 18px;
+    }
+    .quote-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 10px;
+    }
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.2rem;
+      line-height: 1.65; color: var(--ivory);
+    }
+    .quote-ref {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--gold-lt); margin-top: 10px;
+    }
+
+    /* ── Icon row items ── */
+    .icon-row {
+      display: flex; flex-direction: column;
+      gap: 18px; margin-top: 18px;
+      max-width: 860px;
+    }
+    .icon-item {
+      display: flex; align-items: flex-start; gap: 18px;
+    }
+    .icon-circle {
+      width: 54px; height: 54px; flex-shrink: 0;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: rgba(200,150,62,0.08);
+    }
+    .icon-body { flex: 1; }
+    .icon-title {
+      font-size: 1rem; font-weight: 700;
+      color: var(--white); margin-bottom: 4px;
+    }
+    .icon-title span { color: var(--gold-lt); font-weight: 700; }
+    .icon-desc {
+      font-size: 0.9rem; line-height: 1.55; color: var(--muted);
+    }
+    .icon-desc span { color: var(--gold-lt); }
+
+    /* ── Three-column grid ── */
+    .three-col {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px; margin-top: 28px;
+      width: 100%; max-width: 1040px;
+    }
+    .col-card {
+      background: rgba(200,150,62,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px 18px;
+      text-align: center;
+    }
+    .col-number {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .col-text {
+      font-size: 0.9rem; line-height: 1.6; color: var(--muted);
+    }
+
+    /* ── Discussion questions ── */
+    .q-list {
+      display: flex; flex-direction: column;
+      gap: 18px; margin-top: 18px; max-width: 900px;
+    }
+    .q-item {
+      display: flex; align-items: flex-start; gap: 18px;
+    }
+    .q-num {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid var(--gold);
+      color: var(--gold-lt); font-weight: 700; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .q-text {
+      font-size: 0.95rem; line-height: 1.6; color: var(--muted);
+      padding-top: 4px;
+    }
+
+    /* ── Story card ── */
+    .story-card {
+      background: rgba(245,241,232,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 24px 28px;
+      max-width: 860px; margin-top: 18px;
+    }
+    .story-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 12px;
+    }
+    .story-text {
+      font-size: 0.95rem; line-height: 1.7; color: var(--muted);
+    }
+
+    /* ── Blessing ── */
+    .blessing {
+      border-top: 1px solid var(--border);
+      margin-top: 22px; padding-top: 18px;
+      text-align: center; max-width: 760px;
+      font-size: 0.92rem; line-height: 1.7;
+      color: var(--muted);
+    }
+    .blessing strong {
+      display: block; font-size: 0.68rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* centered slide variant */
+    .slide-centered {
+      align-items: center; text-align: center;
+    }
+    .slide-centered .rule { margin-left: auto; margin-right: auto; }
+
+    /* ── Radial glow overlays (per slide type) ── */
+    .glow-title::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(200,150,62,0.15), transparent 55%);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-scripture::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(200,150,62,0.12), transparent 55%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Progress bar & counter ── */
+    #progress-bar {
+      position: fixed; bottom: 0; left: 0;
+      height: 3px; background: var(--gold);
+      transition: width 0.35s ease; z-index: 200;
+    }
+    #slide-counter {
+      position: fixed; bottom: 10px; right: 18px;
+      font-size: 0.75rem; color: var(--muted);
+      font-family: 'Inter', sans-serif; z-index: 200;
+    }
+
+    /* ── Nav buttons ── */
+    .nav-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(7,26,45,0.75);
+      border: 1px solid var(--border);
+      color: var(--muted); font-size: 1.2rem;
+      width: 2.6rem; height: 2.6rem; border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s; z-index: 200;
+    }
+    .nav-btn:hover { background: rgba(200,150,62,0.2); color: var(--gold-lt); }
+    #btn-prev { left: 10px; }
+    #btn-next { right: 10px; }
+
+    /* ── Keyboard hint ── */
+    #kb-hint {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+      font-size: 0.7rem; color: rgba(176,168,152,0.5);
+      font-family: 'Inter', sans-serif; letter-spacing: 0.08em;
+      pointer-events: none; z-index: 200;
+      transition: opacity 0.5s;
+    }
+    #kb-hint.hidden { opacity: 0; }
+
+    /* ── Footnote ── */
+    .footnote {
+      position: absolute; bottom: 22px; left: 80px; right: 80px;
+      font-size: 0.65rem; color: var(--muted-dim);
+      font-family: 'Inter', sans-serif; letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:9.09%"></div>
+<span id="slide-counter">1 / 11</span>
+
+<button id="btn-prev" class="nav-btn" aria-label="Previous slide">&#8592;</button>
+<button id="btn-next" class="nav-btn" aria-label="Next slide">&#8594;</button>
+<div id="kb-hint">← → arrow keys to navigate &nbsp;·&nbsp; F for fullscreen</div>
+
+<div id="deck">
+  <div id="viewport">
+
+    <!-- ═══════════════════════════════ SLIDE 1: TITLE ═══════════════════════════════ -->
+    <div class="slide glow-title active">
+      <div class="cross-header">✦ &nbsp; Sabbath School · Lesson 12 · June 13–19, 2026 &nbsp; ✦</div>
+      <h1>Share <span class="gold">Him</span></h1>
+      <div class="rule"></div>
+      <h3>Growing in a Relationship With God</h3>
+      <div class="quote-box" style="margin-top:22px;">
+        <div class="quote-label">📖 &nbsp; Memory Text</div>
+        <p class="quote-text">"The Lord GOD has given Me the tongue of the learned, that I should know how to speak a word in season to him who is weary. He awakens Me morning by morning, He awakens My ear to hear as the learned."</p>
+        <div class="quote-ref">Isaiah 50:4, NKJV</div>
+      </div>
+      <div class="footnote">Seventh-day Adventist Sabbath School · Q2 2026</div>
+    </div>
+
+    <!-- ═══════════════════════════════ SLIDE 2: BIG IDEA ════════════════════════════ -->
+    <div class="slide">
+      <div class="kicker">Overview</div>
+      <h2>The Big <span class="gold">Idea</span></h2>
+      <div class="rule"></div>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-circle">🌱</div>
+          <div class="icon-body">
+            <div class="icon-title">True witnessing is an <span>organic overflow</span> of a living relationship with Jesus</div>
+            <div class="icon-desc">— not a stressful performance.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle">🤝</div>
+          <div class="icon-body">
+            <div class="icon-title">Every interaction, even a fleeting moment, is an <span>opportunity</span></div>
+            <div class="icon-desc">to reveal Christ's love to others.</div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ═══════════════════════════════ SLIDE 3: SUNDAY ══════════════════════════════ -->
+    <div class="slide">
+      <div class="kicker">Sunday</div>
+      <h2>Out of the <span class="gold">Overflow</span></h2>
+      <div class="rule"></div>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-circle">🌐</div>
+          <div class="icon-body">
+            <div class="icon-title">The Great Commission <span style="font-weight:400;color:var(--muted);">(Matthew 28:18-20)</span></div>
+            <div class="icon-desc">We are called to share Christ, backed by His "all authority" and continuous presence.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle">💬</div>
+          <div class="icon-body">
+            <div class="icon-title">Personal Testimony <span style="font-weight:400;color:var(--muted);">(Acts 4:20)</span></div>
+            <div class="icon-desc">Witnessing is not reserved for eloquent experts — it is the natural result of being an eyewitness to what God has done in your own life.</div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ═══════════════════════════════ SLIDE 4: MONDAY ═════════════════════════════ -->
+    <div class="slide glow-scripture">
+      <div class="kicker">Monday</div>
+      <h2>Unforced but <span class="gold">With Power</span></h2>
+      <div class="rule"></div>
+      <p class="kicker" style="margin-top:4px; margin-bottom:10px;">Key Concepts</p>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-circle">❤️</div>
+          <div class="icon-body">
+            <div class="icon-title">Jesus was moved with compassion</div>
+            <div class="icon-desc">Matthew 9:36 — His love must be our driving force in reaching souls.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle">🚪</div>
+          <div class="icon-body">
+            <div class="icon-title">Coercion goes against God's character</div>
+            <div class="icon-desc">We must invite rather than force, mirroring Jesus' approach to humanity.</div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 5: TUESDAY ══════════════════════════════ -->
+    <div class="slide">
+      <div class="kicker">Tuesday</div>
+      <h2>Tips for <span class="gold">Sharing Jesus</span></h2>
+      <div class="rule"></div>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-circle">👥</div>
+          <div class="icon-body">
+            <div class="icon-title">Build genuine friendships</div>
+            <div class="icon-desc">Look for natural ways to connect and pray for people's needs.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle">✝️</div>
+          <div class="icon-body">
+            <div class="icon-title">Live a consistent, loving character</div>
+            <div class="icon-desc">Our actions are the strongest arguments for the gospel <span>(1 Peter 3:15).</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ═══════════════════════════════ SLIDE 6: WEDNESDAY ══════════════════════════ -->
+    <div class="slide glow-scripture">
+      <div class="kicker">Wednesday</div>
+      <h2>A <span class="gold">Wandering</span> Child</h2>
+      <div class="rule"></div>
+      <div class="icon-row" style="gap:14px;">
+        <div class="icon-item">
+          <div class="icon-circle" style="font-size:1.2rem;">💛</div>
+          <div class="icon-body">
+            <div class="icon-desc" style="font-size:0.95rem; color:var(--ivory);">God shares the pain of loved ones who walk away from faith, yearning for them deeply <span>(Jeremiah 31).</span></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle" style="font-size:1.2rem;">🙏</div>
+          <div class="icon-body">
+            <div class="icon-desc" style="font-size:0.95rem; color:var(--ivory);">Relinquish control — surrender sadness and frustration to the Lord.</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle" style="font-size:1.2rem;">📖</div>
+          <div class="icon-body">
+            <div class="icon-desc" style="font-size:0.95rem; color:var(--ivory);">Trust that He is actively working behind the scenes.</div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 7: THURSDAY ════════════════════════════ -->
+    <div class="slide">
+      <div class="kicker">Thursday</div>
+      <h2><span class="gold">Bring</span> Them Back</h2>
+      <div class="rule"></div>
+      <div class="icon-row">
+        <div class="icon-item">
+          <div class="icon-circle">✝️</div>
+          <div class="icon-body">
+            <div class="icon-title">Stop the debates</div>
+            <div class="icon-desc">Instead, live a consistent life that points others to Christ's <span>unselfish love.</span></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="icon-item">
+          <div class="icon-circle">🙌</div>
+          <div class="icon-body">
+            <div class="icon-title">The testimony of a loving, unselfish life</div>
+            <div class="icon-desc">Coupled with persistent prayer, has the power to <span>radically change lives.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 8: INSIDE STORY ════════════════════════ -->
+    <div class="slide glow-scripture">
+      <div class="kicker">Inside Story</div>
+      <h2>Stranger in the <span class="gold">Parking Lot</span></h2>
+      <div class="rule"></div>
+      <div class="story-card">
+        <div class="story-label">📖 &nbsp; Key Moment</div>
+        <p class="story-text">Zeth, a volunteer Bible worker in Indonesia, trusted God entirely for provision. After visiting and praying for families daily, God provided miraculously through a stranger in a parking lot when their funds ran out.</p>
+      </div>
+      <p style="margin-top:18px; font-size:0.9rem; color:var(--muted); max-width:860px; line-height:1.65; font-style:italic;">
+        "A reminder that faithful, sacrificial witness is never unseen — God supplies what He assigns."
+      </p>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 9: SYNTHESIS ════════════════════════════ -->
+    <div class="slide slide-centered">
+      <div class="cross-header">✦ &nbsp; Weekly Synthesis &nbsp; ✦</div>
+      <h2>Key <span class="gold">Principles</span></h2>
+      <div class="rule"></div>
+      <div class="three-col">
+        <div class="col-card">
+          <div class="col-number">1</div>
+          <p class="col-text">Witnessing flows naturally from a personal relationship with God.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-number">2</div>
+          <p class="col-text">Compassion and love must precede any invitation — coercion has no place in ministry.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-number">3</div>
+          <p class="col-text">A consistent, unselfish life is the most powerful argument for the gospel.</p>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 10: REFLECT ════════════════════════════ -->
+    <div class="slide">
+      <div class="kicker">Discussion</div>
+      <h2>Reflect, <span class="gold">Discuss,</span> Apply</h2>
+      <div class="rule"></div>
+      <div class="q-list">
+        <div class="q-item">
+          <div class="q-num">1</div>
+          <div class="q-text">Why is love so foundational and essential for any kind of effective witnessing?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">2</div>
+          <div class="q-text">When have you found this to be true: that soul winning is linked to a personal and vibrant walk with God?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">3</div>
+          <div class="q-text">When it comes to giving a Bible study to a nonbeliever, where would you begin?</div>
+        </div>
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12</div>
+    </div>
+
+    <!-- ══════════════════════════════ SLIDE 11: CLOSING ════════════════════════════ -->
+    <div class="slide slide-centered glow-title">
+      <div class="cross-header">✦ &nbsp; Memory Text &nbsp; ✦</div>
+      <h2>Isaiah <span class="gold">50:4</span></h2>
+      <h3 style="margin-bottom:0;">(NKJV)</h3>
+      <div class="rule"></div>
+      <div class="quote-box" style="border-left:none; border-top:4px solid var(--gold); text-align:center; max-width:920px;">
+        <p class="quote-text">"The Lord GOD has given Me the tongue of the learned, that I should know how to speak a word in season to him who is weary. He awakens Me morning by morning, He awakens My ear to hear as the learned."</p>
+      </div>
+      <div class="blessing">
+        <strong class="gold">✦ Blessing ✦</strong>
+        May your life overflow with the love of Christ, drawing others to Him through your gentle witness and compassionate heart. Amen.
+      </div>
+      <div class="footnote">Share Him · Sabbath School Lesson 12 · Q2 2026</div>
+    </div>
+
+  </div><!-- /#viewport -->
+</div><!-- /#deck -->
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const total  = slides.length;
+  const bar    = document.getElementById('progress-bar');
+  const ctr    = document.getElementById('slide-counter');
+  let current  = 0;
+
+  function showSlide(idx) {
+    slides[current].classList.remove('active');
+    current = (idx + total) % total;
+    slides[current].classList.add('active');
+    bar.style.width = ((current + 1) / total * 100) + '%';
+    ctr.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  document.getElementById('btn-next').addEventListener('click', nextSlide);
+  document.getElementById('btn-prev').addEventListener('click', prevSlide);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+    else if (e.key === 'Home') showSlide(0);
+    else if (e.key === 'End')  showSlide(total - 1);
+    else if (e.key.toLowerCase() === 'f') document.documentElement.requestFullscreen?.();
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+  }, { passive: true });
+
+  /* Scale 1280×720 viewport to fill the window */
+  function scaleViewport() {
+    const vp = document.getElementById('viewport');
+    const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    vp.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', scaleViewport);
+  scaleViewport();
+
+  setTimeout(() => document.getElementById('kb-hint').classList.add('hidden'), 5000);
+</script>
+</body>
+</html>
