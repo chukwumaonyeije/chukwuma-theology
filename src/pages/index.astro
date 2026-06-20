@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Share Him — Growing in a Relationship With God',
+    description:
+      'A Sabbath School presentation for Lesson 12 (Q2 2026) on witnessing as the organic overflow of life with Christ. Covers the Great Commission, compassion-driven outreach, practical tips for sharing Jesus, caring for wandering loved ones, and three key principles of gospel witness.',
+    href: `${base}/presentations/share-him/`,
+    tag: 'Sabbath School Presentation',
+    meta: 'Standalone slideshow · 11 slides · June 19, 2026',
+  },
+  {
     title: 'Setbacks into Gold',
     description:
       'A Sabbath School study on growing through adversity — covering four biblical archetypes (the Sudden Storm, the Chronic Burden, the Inexplicable Loss, and Shattered Expectations) drawn from Romans 5, Mark 4–5, Job, and Luke 24.',
