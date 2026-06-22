@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Into Eternity',
+    description:
+      'A Sabbath School presentation on the eschatological journey from the struggles of a fallen world to the glorious hope of the New Jerusalem. Covers the core tension of living between two realms, spiritual renewal, the anatomy of Christ\'s return, the Bride of Christ, and the architecture of the New Jerusalem.',
+    href: `${base}/presentations/into-eternity/`,
+    tag: 'Sabbath School Presentation',
+    meta: 'Standalone slideshow · 13 slides · June 22, 2026',
+  },
+  {
     title: 'Share Him — Growing in a Relationship With God',
     description:
       'A Sabbath School presentation for Lesson 12 (Q2 2026) on witnessing as the organic overflow of life with Christ. Covers the Great Commission, compassion-driven outreach, practical tips for sharing Jesus, caring for wandering loved ones, and three key principles of gospel witness.',
