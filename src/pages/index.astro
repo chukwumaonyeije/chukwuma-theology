@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'The Demas Condition',
+    description:
+      "A sermon presentation by Dr. Chukwuma I. Onyeije, MD, FACOG examining 'The Demas Condition'—a state where outer spiritual indicators appear healthy while the inner heart is drifting away from God.",
+    href: `${base}/presentations/the-demas-condition-sermon/`,
+    tag: 'Sermon Presentation',
+    meta: 'Interactive website · 18 slides · June 2026',
+  },
+  {
     title: 'Into Eternity',
     description:
       'A Sabbath School presentation on the eschatological journey from the struggles of a fallen world to the glorious hope of the New Jerusalem. Covers the core tension of living between two realms, spiritual renewal, the anatomy of Christ\'s return, the Bride of Christ, and the architecture of the New Jerusalem.',

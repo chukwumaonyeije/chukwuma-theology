@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demas Condition — Dr. Chukwuma I. Onyeije</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --deep-navy:    #2C3E50;
+            --warm-amber:   #E67E22;
+            --light-cloud:  #ECF0F1;
+            --muted-silver: #95A5A6;
+            --dark-bg:      #1a2533;
+            --card-bg:      rgba(44,62,80,0.85);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-cloud);
+            font-family: 'Lato', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+        }
+
+        /* ── DECK ── */
+        .deck {
+            width: 100%; height: 100%;
+            position: relative;
+        }
+
+        /* ── SLIDE BASE ── */
+        .slide {
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 3em 4em;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.6s ease-in-out;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--deep-navy) 100%);
+        }
+        .slide.active { opacity: 1; visibility: visible; }
+
+        /* ── TYPOGRAPHY ── */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 700;
+            color: var(--light-cloud);
+            line-height: 1.15;
+            text-align: center;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+            font-weight: 400;
+            color: var(--light-cloud);
+            line-height: 1.2;
+            text-align: center;
+        }
+        h3 {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 700;
+            color: var(--warm-amber);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.6em;
+        }
+        p {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(1rem, 1.8vw, 1.35rem);
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--light-cloud);
+            text-align: center;
+            max-width: 820px;
+        }
+        .scripture {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+            color: var(--light-cloud);
+            line-height: 1.6;
+            text-align: center;
+            max-width: 760px;
+        }
+        .ref {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--warm-amber);
+            letter-spacing: 0.08em;
+            margin-top: 0.5em;
+            text-align: center;
+        }
+        .kicker {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--warm-amber);
+            text-align: center;
+            margin-top: 0.8em;
+        }
+        .label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted-silver);
+            margin-bottom: 1.2em;
+        }
+
+        /* ── DIVIDER ── */
+        .amber-rule {
+            width: 80px; height: 3px;
+            background: var(--warm-amber);
+            border-radius: 2px;
+            margin: 1em auto;
+        }
+
+        /* ── CARDS / GRID ── */
+        .card-grid {
+            display: grid;
+            gap: 1.2em;
+            width: 100%;
+            max-width: 900px;
+        }
+        .card-grid.two-col { grid-template-columns: 1fr 1fr; }
+        .card-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+        .card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--warm-amber);
+            border-radius: 6px;
+            padding: 1em 1.3em;
+        }
+        .card h4 {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+            font-weight: 700;
+            color: var(--warm-amber);
+            margin-bottom: 0.4em;
+        }
+        .card p {
+            font-size: clamp(0.8rem, 1.3vw, 0.98rem);
+            text-align: left;
+            margin: 0;
+        }
+
+        /* ── CONTRAST HIGHLIGHT ── */
+        .contrast-row {
+            display: flex;
+            gap: 2em;
+            align-items: stretch;
+            max-width: 860px;
+            width: 100%;
+        }
+        .contrast-box {
+            flex: 1;
+            border-radius: 8px;
+            padding: 1.5em;
+            text-align: center;
+        }
+        .contrast-box.left  { background: rgba(231,76,60,0.18); border: 2px solid rgba(231,76,60,0.5); }
+        .contrast-box.right { background: rgba(39,174,96,0.18); border: 2px solid rgba(39,174,96,0.5); }
+        .contrast-box .name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.4em;
+        }
+        .contrast-box.left  .name { color: #e74c3c; }
+        .contrast-box.right .name { color: #27ae60; }
+        .contrast-box p { font-size: clamp(0.85rem, 1.4vw, 1rem); text-align: center; }
+
+        /* ── VITALS TABLE ── */
+        .vitals-table {
+            width: 100%;
+            max-width: 780px;
+            border-collapse: collapse;
+            margin-top: 0.5em;
+        }
+        .vitals-table th {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--warm-amber);
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--warm-amber);
+            text-align: left;
+        }
+        .vitals-table td {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(0.85rem, 1.3vw, 1rem);
+            padding: 0.7em 1em;
+            border-bottom: 1px solid rgba(149,165,166,0.25);
+            color: var(--light-cloud);
+        }
+        .vitals-table tr:last-child td { border-bottom: none; }
+        .vitals-table .status-ok   { color: #27ae60; font-weight: 700; }
+        .vitals-table .status-warn { color: #e74c3c; font-weight: 700; }
+
+        /* ── SLIDE COUNTER ── */
+        #counter {
+            position: fixed;
+            bottom: 1em; right: 1.5em;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.75rem;
+            color: var(--muted-silver);
+            letter-spacing: 0.08em;
+            z-index: 100;
+        }
+
+        /* ── NAV ARROWS ── */
+        .nav-arrow {
+            position: fixed;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(44,62,80,0.6);
+            border: 1px solid rgba(149,165,166,0.3);
+            border-radius: 50%;
+            width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            color: var(--muted-silver);
+            font-size: 1.2rem;
+            z-index: 100;
+            transition: background 0.2s;
+        }
+        .nav-arrow:hover { background: rgba(230,126,34,0.4); color: var(--light-cloud); }
+        #prev-btn { left: 1em; }
+        #next-btn { right: 1em; }
+
+        /* ── PROGRESS BAR ── */
+        #progress {
+            position: fixed;
+            bottom: 0; left: 0;
+            height: 3px;
+            background: var(--warm-amber);
+            transition: width 0.4s ease;
+            z-index: 100;
+        }
+
+        /* ── BACKGROUND TEXTURES per slide ── */
+        .bg-texture-1 { background: linear-gradient(135deg, #1a2533 0%, #2C3E50 60%, #1f3044 100%); }
+        .bg-texture-2 { background: linear-gradient(160deg, #1a2533 0%, #2a3f55 100%); }
+        .bg-texture-3 { background: linear-gradient(135deg, #1a2533 0%, #2C3E50 100%); }
+        .bg-amber-dark { background: linear-gradient(135deg, #1a1a0e 0%, #2C3E50 60%, #2a2010 100%); }
+    </style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 1 — TITLE
+    ══════════════════════════════════════════════ -->
+    <div class="slide active bg-texture-1" id="slide-1">
+        <div class="label">Chukwuma Theology</div>
+        <h1>The Demas Condition</h1>
+        <div class="amber-rule"></div>
+        <h2 style="font-style:italic; color:var(--muted-silver); font-size:clamp(1rem,2vw,1.6rem); margin-top:0.4em;">
+            When the Heart Looks Healthy but Is Not
+        </h2>
+        <p style="margin-top:1.6em; font-size:clamp(0.85rem,1.4vw,1.05rem); color:var(--muted-silver);">
+            Dr. Chukwuma I. Onyeije, MD, FACOG
+        </p>
+        <p style="margin-top:0.5em; font-size:clamp(0.8rem,1.2vw,0.95rem); color:var(--muted-silver);">
+            Nigerian Prayer Fellowship — Nigeria and the Diaspora
+        </p>
+        <div style="margin-top:2em; display:flex; gap:1.5em; flex-wrap:wrap; justify-content:center;">
+            <span style="font-family:'Lato',sans-serif; font-size:0.8rem; color:var(--warm-amber); letter-spacing:0.1em;">Colossians 4:14</span>
+            <span style="color:var(--muted-silver);">·</span>
+            <span style="font-family:'Lato',sans-serif; font-size:0.8rem; color:var(--warm-amber); letter-spacing:0.1em;">2 Timothy 4:10–11</span>
+            <span style="color:var(--muted-silver);">·</span>
+            <span style="font-family:'Lato',sans-serif; font-size:0.8rem; color:var(--warm-amber); letter-spacing:0.1em;">Psalm 139:23–24</span>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 2 — OPENING HOOK
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-2" id="slide-2">
+        <div class="label">Opening — The Patient Who Felt Fine</div>
+        <h2>She Felt Completely Well.</h2>
+        <div class="amber-rule"></div>
+        <p>
+            A mother expecting a child. No pain. No bleeding. No warning of any kind.<br>
+            By everything she could see and feel — <em>all was well.</em>
+        </p>
+        <p style="margin-top:1.2em;">
+            But we do not go only by what she feels.<br>
+            We measure. We look beneath the surface.
+        </p>
+        <div class="kicker" style="margin-top:1.4em;">
+            She was not in pain. She was in danger.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 3 — THE BRIDGE
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-3" id="slide-3">
+        <div class="label">The Spiritual Parallel</div>
+        <h2>The Other Kind of Life</h2>
+        <div class="amber-rule"></div>
+        <p>
+            A Christian can pray. Can serve. Can give. Can teach. Can lead.<br>
+            Can carry the whole <em>outward shape</em> of a faithful life —
+        </p>
+        <div class="kicker" style="margin-top:1.2em;">
+            — and be quietly losing the heart the entire time.
+        </div>
+        <p style="margin-top:1.4em; color:var(--muted-silver); font-size:clamp(0.85rem,1.3vw,1rem);">
+            That is not a hypothetical. That is a man in the Bible.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 4 — INTRODUCING DEMAS
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-1" id="slide-4">
+        <div class="label">Movement One — Two Verses, One Autopsy</div>
+        <h3>The First Scan — AD 60–62</h3>
+        <div class="scripture">
+            "Luke the beloved physician, and Demas, greet you."
+        </div>
+        <div class="ref">— Colossians 4:14, NKJV</div>
+        <div class="amber-rule" style="margin-top:1.2em;"></div>
+        <p style="margin-top:0.8em;">
+            Demas is standing next to Luke.<br>
+            Inside Paul's inner circle. Named in Scripture. Active. Present.
+        </p>
+        <div class="kicker" style="margin-top:1em;">
+            Everything looks normal.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 5 — THE SECOND SCAN
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-amber-dark" id="slide-5">
+        <div class="label">Movement One — Two Verses, One Autopsy</div>
+        <h3>The Second Scan — AD 67</h3>
+        <div class="scripture">
+            "Demas has forsaken me,<br>having loved this present world."
+        </div>
+        <div class="ref">— 2 Timothy 4:10, NKJV</div>
+        <div class="amber-rule" style="margin-top:1.2em;"></div>
+        <p style="margin-top:0.8em;">
+            No scandal. No public rebellion. No headline.
+        </p>
+        <div class="kicker" style="margin-top:0.8em; color:#e74c3c;">
+            The cause of death was misdirected love.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 6 — THE DRIFT
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-2" id="slide-6">
+        <div class="label">Movement Two — He Did Not Fall. He Drifted.</div>
+        <h2>The Crisis Is Never the Beginning</h2>
+        <div class="amber-rule"></div>
+        <p>
+            In medicine, the dramatic event is almost never the beginning of the disease.<br>
+            It is the <em>end</em> of it. The crisis is when the body finally announces<br>
+            what has been developing silently, in the dark, for a long time.
+        </p>
+        <div class="kicker" style="margin-top:1.4em;">
+            He did not fall. He drifted.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 7 — THE GREEK WORD
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-3" id="slide-7">
+        <div class="label">The Diagnosis — A Conflict of Affections</div>
+        <h3>Word Study: Agapēsas</h3>
+        <div class="card-grid" style="max-width:780px; margin-top:0.8em;">
+            <div class="card">
+                <h4>agapēsas (ἀγαπήσας)</h4>
+                <p>The love word — the same word used for the love of God Himself. Demas gave his deepest affection and allegiance to the present age.</p>
+            </div>
+            <div class="card">
+                <h4>aiōn (αἰών)</h4>
+                <p>Not the planet, not people — the present age. The spirit of the times. The mood of the moment. The rewards available <em>now</em>.</p>
+            </div>
+        </div>
+        <div class="kicker" style="margin-top:1.4em;">
+            The great conflict is not a conflict of ideas.<br>It is a conflict of affections.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 8 — THE SILENT KILLER
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-1" id="slide-8">
+        <div class="label">Story One — When the Outside Does Not Tell the Truth</div>
+        <h2>Stable Is Not the Same as Well</h2>
+        <div class="amber-rule"></div>
+        <p>
+            She felt fine. She was not fine.<br>
+            Pressure rising where it must not rise. A silent process, already advanced.<br>
+            The window to act safely was closing — and she had felt almost none of it.
+        </p>
+        <div class="kicker" style="margin-top:1.4em;">
+            Feeling fine is not a diagnosis. It is a feeling.
+        </div>
+        <p style="margin-top:1em; color:var(--muted-silver); font-size:clamp(0.8rem,1.2vw,0.95rem);">
+            The most dangerous diseases of the soul are the ones that let you feel fine<br>right up until the day they don't.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 9 — TWO MEN
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-2" id="slide-9">
+        <div class="label">Movement Three — Two Men. One Gospel. Two Endings.</div>
+        <h2>They Looked Identical on the Chart</h2>
+        <div class="amber-rule"></div>
+        <div class="contrast-row" style="margin-top:1.2em;">
+            <div class="contrast-box left">
+                <div class="name">Demas</div>
+                <p>Named in Scripture. Active. Present. Sent greetings to the churches.</p>
+                <p style="margin-top:0.6em; color:#e74c3c; font-weight:700;">Remembered for leaving.</p>
+            </div>
+            <div class="contrast-box right">
+                <div class="name">Luke</div>
+                <p>Named in Scripture. Active. Present. A skilled physician.</p>
+                <p style="margin-top:0.6em; color:#27ae60; font-weight:700;">"Only Luke is with me."</p>
+            </div>
+        </div>
+        <p style="margin-top:1.2em; font-size:clamp(0.85rem,1.3vw,1rem); color:var(--muted-silver);">
+            2 Timothy 4:11, NKJV
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 10 — PROXIMITY VS SURRENDER
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-3" id="slide-10">
+        <div class="label">The Defining Difference</div>
+        <h2>Proximity Is Not Surrender</h2>
+        <div class="amber-rule"></div>
+        <p>
+            You can stand close to the fire your whole life and never let it warm you.<br>
+            You can be near the work without being given to the Worker.
+        </p>
+        <div style="display:flex; gap:2.5em; margin-top:1.5em; justify-content:center;">
+            <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif; font-size:clamp(1.2rem,2.2vw,1.7rem); color:#e74c3c; font-weight:700;">Demas</div>
+                <div style="font-family:'Lato',sans-serif; font-size:clamp(0.85rem,1.4vw,1.05rem); color:var(--muted-silver); margin-top:0.3em;">had proximity</div>
+            </div>
+            <div style="font-size:2rem; color:var(--muted-silver); align-self:center;">→</div>
+            <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif; font-size:clamp(1.2rem,2.2vw,1.7rem); color:#27ae60; font-weight:700;">Luke</div>
+                <div style="font-family:'Lato',sans-serif; font-size:clamp(0.85rem,1.4vw,1.05rem); color:var(--muted-silver); margin-top:0.3em;">had surrender</div>
+            </div>
+        </div>
+        <div class="kicker" style="margin-top:1.4em;">
+            Demas climbed. Luke knelt.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 11 — VOCATION AS OFFERING
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-1" id="slide-11">
+        <div class="label">The Question for Every Competent Person</div>
+        <h2>A Ladder — or an Offering?</h2>
+        <div class="amber-rule"></div>
+        <p>
+            Doctors. Nurses. Engineers. Business owners. Students.<br>
+            People who left home and crossed oceans because they were good at something.
+        </p>
+        <p style="margin-top:1em;">
+            The question is not whether you have gifts.<br>
+            The question is <em>what your gifts are for.</em>
+        </p>
+        <div class="card-grid two-col" style="margin-top:1.4em;">
+            <div class="card" style="border-color:#e74c3c;">
+                <h4 style="color:#e74c3c;">A Ladder</h4>
+                <p>Used for advancement. A monument to self. Climbed for the present age.</p>
+            </div>
+            <div class="card" style="border-color:#27ae60;">
+                <h4 style="color:#27ae60;">An Offering</h4>
+                <p>Laid on the altar. Bent toward the kingdom. Given to the Worker.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 12 — STORY TWO / PERSONAL
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-2" id="slide-12">
+        <div class="label">Story Two — What Has Held Me Steady</div>
+        <h2>Every Identity Whispers the Same Thing</h2>
+        <div class="amber-rule"></div>
+        <p>
+            The immigrant. The student. The doctor. The builder.<br>
+            The husband. The father. The elder.
+        </p>
+        <p style="margin-top:1em; font-style:italic; color:var(--muted-silver);">
+            Each layer brought the same whisper:
+        </p>
+        <div class="kicker" style="margin-top:0.8em; font-size:clamp(1.1rem,2vw,1.6rem);">
+            "This is what matters now. Love this. Build this. Become this."
+        </div>
+        <p style="margin-top:1.2em; color:var(--muted-silver); font-size:clamp(0.85rem,1.3vw,1rem);">
+            And it does not feel like drifting. It feels like winning.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 13 — THE FIXED POINT
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-3" id="slide-13">
+        <div class="label">The Only Thing That Has Held Me Steady</div>
+        <h2>The One Who Does Not Change</h2>
+        <div class="amber-rule"></div>
+        <p>
+            It was never the achievement — the achievement is a moving target.<br>
+            It was never the security — the security can be gone by Friday.<br>
+            It was never the title — titles are borrowed.
+        </p>
+        <div class="kicker" style="margin-top:1.4em;">
+            Everything in my life has been temporary except Him.
+        </div>
+        <p style="margin-top:1em; color:var(--muted-silver); font-size:clamp(0.85rem,1.3vw,1rem);">
+            That is what Demas let go of, and the thing Luke held onto — all the way to the end.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 14 — THE MIRROR
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-1" id="slide-14">
+        <div class="label">The Mirror — Now It Is About Us</div>
+        <h2>Success Creates Its Own Theology</h2>
+        <div class="amber-rule"></div>
+        <table class="vitals-table">
+            <thead>
+                <tr>
+                    <th>Outward Vital</th>
+                    <th>Reading</th>
+                    <th>Inner Reality</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bank account</td>
+                    <td class="status-ok">Healthy ✓</td>
+                    <td>Soul may be starving</td>
+                </tr>
+                <tr>
+                    <td>Ministry title</td>
+                    <td class="status-ok">Healthy ✓</td>
+                    <td>Heart may be cold</td>
+                </tr>
+                <tr>
+                    <td>Attendance / giving</td>
+                    <td class="status-ok">Healthy ✓</td>
+                    <td>Love may be misdirected</td>
+                </tr>
+                <tr>
+                    <td>Admiration of peers</td>
+                    <td class="status-ok">Healthy ✓</td>
+                    <td>Throne may be occupied</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="kicker" style="margin-top:1em; font-size:clamp(1rem,1.8vw,1.4rem);">
+            You can lose your heart in the third pew, with your hand raised.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 15 — 1 JOHN 2:15
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-amber-dark" id="slide-15">
+        <div class="label">The Throne Question</div>
+        <div class="scripture">
+            "Do not love the world or the things in the world.<br>
+            If anyone loves the world,<br>
+            the love of the Father is not in him."
+        </div>
+        <div class="ref">— 1 John 2:15, NKJV</div>
+        <div class="amber-rule" style="margin-top:1.4em;"></div>
+        <p style="margin-top:0.8em;">
+            The fortress cannot stand empty.<br>
+            Something is always on the throne.
+        </p>
+        <div class="kicker" style="margin-top:1em; font-size:clamp(1.1rem,2vw,1.6rem);">
+            What is on the throne of yours?
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 16 — THE BRAVE PRAYER
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-2" id="slide-16">
+        <div class="label">Search Me, O God — The Brave Prayer</div>
+        <h2>The Bravest Prayer in the Bible</h2>
+        <div class="amber-rule"></div>
+        <div class="scripture">
+            "Search me, O God, and know my heart;<br>
+            try me, and know my anxieties;<br>
+            and see if there is any wicked way in me,<br>
+            and lead me in the way everlasting."
+        </div>
+        <div class="ref">— Psalm 139:23–24, NKJV</div>
+        <p style="margin-top:1.2em; color:var(--muted-silver); font-size:clamp(0.85rem,1.3vw,1rem);">
+            He is asking God to run the scan — to show him what he cannot see in himself.
+        </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 17 — THE GREAT PHYSICIAN
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-3" id="slide-17">
+        <div class="label">The Gospel Underneath All of This</div>
+        <h2>The Physician Does Not Only Diagnose</h2>
+        <div class="amber-rule"></div>
+        <div class="card-grid three-col" style="margin-top:1em;">
+            <div class="card">
+                <h4>Gold Refined in Fire</h4>
+                <p>Tested, proven faith — forged through honest examination.</p>
+            </div>
+            <div class="card">
+                <h4>White Garments</h4>
+                <p>His righteousness, to cover what we cannot fix ourselves.</p>
+            </div>
+            <div class="card">
+                <h4>Eye-Salve</h4>
+                <p>Honest sight — to see ourselves at last, and see Him clearly.</p>
+            </div>
+        </div>
+        <div class="kicker" style="margin-top:1.4em; font-size:clamp(1rem,1.8vw,1.5rem);">
+            He is not standing over the chart shaking His head.<br>He is holding the cure.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SLIDE 18 — CHECK YOUR VITALS / CLOSE
+    ══════════════════════════════════════════════ -->
+    <div class="slide bg-texture-1" id="slide-18">
+        <div class="label">The Close — Check Your Vitals</div>
+        <h2>Before You Leave This Room</h2>
+        <div class="amber-rule"></div>
+        <p>
+            Ask the Holy Spirit the hard question, and be quiet long enough to hear the answer.
+        </p>
+        <div class="card-grid" style="margin-top:1.2em; max-width:700px;">
+            <div class="card">
+                <h4>What do I love most?</h4>
+                <p>What occupies the center of my imagination when no one is watching?</p>
+            </div>
+            <div class="card">
+                <h4>What would I struggle to surrender?</h4>
+                <p>If Christ asked me for it tonight — what would I hesitate to give?</p>
+            </div>
+        </div>
+        <div class="kicker" style="margin-top:1.4em; font-size:clamp(1.2rem,2.2vw,1.8rem);">
+            Check your vitals.<br>
+            <span style="font-size:0.8em; color:var(--muted-silver);">The Physician is in. And the cure is His to give.</span>
+        </div>
+    </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<button class="nav-arrow" id="prev-btn" onclick="prevSlide()" title="Previous (←)">&#8592;</button>
+<button class="nav-arrow" id="next-btn" onclick="nextSlide()" title="Next (→)">&#8594;</button>
+<div id="counter">1 / 18</div>
+<div id="progress" style="width:5.56%;"></div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progress');
+
+    function showSlide(index) {
+        slides.forEach((s, i) => {
+            s.classList.toggle('active', i === index);
+        });
+        counter.textContent = (index + 1) + ' / ' + total;
+        progress.style.width = ((index + 1) / total * 100).toFixed(2) + '%';
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % total;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + total) % total;
+        showSlide(currentSlide);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    });
+
+    // Touch / swipe support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+    });
+
+    showSlide(0);
+</script>
+</body>
+</html>
