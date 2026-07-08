@@ -177,12 +177,12 @@
   {
     "title": "Under the Broom Tree: Elijah's Depression",
     "slug": "under-the-broom-tree",
-    "description": "A study on 1 Kings 19. How God deals gently with the physical exhaustion, mental fatigue, and depression of His prophet Elijah.",
+    "description": "A sermon presentation on 1 Kings 19. How God deals gently with the physical exhaustion, mental fatigue, and depression of His prophet Elijah — meeting collapse with care, presence, truth, and a future.",
     "tag": "Sermon Presentation",
-    "meta": "PDF Presentation · 12 slides · June 2026",
-    "type": "pdf",
+    "meta": "Standalone slideshow · 10 slides · May 2026",
+    "type": "marp-html",
     "url": "/presentations/under-the-broom-tree/",
-    "downloadUrl": "/Elijah Sermon/under_the_broom_tree_sermon.pdf",
+    "downloadUrl": "/presentations/under-the-broom-tree/under-the-broom-tree.marp.md",
     "relatedPosts": ["when-the-prophet-breaks-down", "when-the-tank-is-empty"],
     "transcript": "## Elijah's Desert Journey\nThis presentation examines the narrative of 1 Kings 19, where Elijah, fleeing from Jezebel, sits under a broom tree and prays to die.\n\nWe outline a clinical and spiritual response to burnout:\n1. **Physical Restoration**: God provides food and sleep before addressing Elijah's theology.\n2. **Safe Disclosure**: The question 'What are you doing here, Elijah?' allows expression of despair.\n3. **The Still Small Voice**: Not in the wind, earthquake, or fire, but in the whisper of divine presence.\n4. **A New Mission**: God gives Elijah new instructions and a successor, reminding him he is not alone."
   }
