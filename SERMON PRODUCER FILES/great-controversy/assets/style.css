@@ -1,0 +1,305 @@
+/* Great Controversy — Shared Stylesheet */
+/* Tufte-inspired: wide margins, serif body, quiet palette */
+
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2c4a6e;       /* deep navy — echoes the 1888 GC cover */
+  --accent-light: #e8eef5;
+  --gold: #8b6914;         /* parchment gold for highlights */
+  --gold-light: #fdf6e3;
+  --border: #ddd8cc;
+  --correct: #2e6b3e;
+  --correct-bg: #eaf4ec;
+  --wrong: #8b2c2c;
+  --wrong-bg: #faeaea;
+  --radius: 6px;
+  --max-width: 680px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.75;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.lesson-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Header */
+.lesson-header {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.lesson-series {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.lesson-number {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1.25;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.lesson-subtitle {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Body */
+h2 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  color: var(--accent);
+  margin: 2.5rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+p { margin-bottom: 1.2rem; }
+
+a { color: var(--accent); }
+a:hover { text-decoration: underline; }
+
+/* Pull quote */
+blockquote {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-light);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--gold);
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
+/* Key concept callout */
+.callout {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.callout-label {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+/* Timeline */
+.timeline {
+  list-style: none;
+  border-left: 2px solid var(--border);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.timeline li {
+  position: relative;
+  margin-bottom: 1.25rem;
+  padding-left: 0.5rem;
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -1.85rem;
+  top: 0.55rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+
+.timeline-date {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* Quiz */
+.quiz-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.quiz-title {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.quiz-question {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quiz-option {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  font-family: "Georgia", serif;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.quiz-option.correct {
+  background: var(--correct-bg);
+  border-color: var(--correct);
+  color: var(--correct);
+}
+
+.quiz-option.wrong {
+  background: var(--wrong-bg);
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+
+.quiz-feedback {
+  font-size: 0.9rem;
+  min-height: 1.5rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Reflection */
+.reflection {
+  background: var(--gold-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 2rem 0;
+}
+
+.reflection-label {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.reflection p { color: var(--text); font-style: italic; }
+
+/* Primary source */
+.primary-source {
+  border-top: 1px solid var(--border);
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+}
+
+.primary-source-label {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+/* Teacher prompt */
+.teacher-prompt {
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 2rem 0 0;
+  font-size: 0.95rem;
+}
+
+.teacher-prompt strong { display: block; margin-bottom: 0.25rem; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* Nav */
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.lesson-nav a { color: var(--accent); text-decoration: none; }
+.lesson-nav a:hover { text-decoration: underline; }
+
+@media print {
+  body { background: white; font-size: 12pt; }
+  .quiz-section, .teacher-prompt { display: none; }
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16px; padding: 1.5rem 1rem 4rem; }
+  h1 { font-size: 1.6rem; }
+}
