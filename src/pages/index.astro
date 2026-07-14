@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'The Door of Reconciliation',
+    description:
+      "Pastor Evan Knott's July 11th sermon on the historic 'chancing your arm' story at St. Patrick's Cathedral and Ephesians 2 — how Christ's cross opens the door between enemies and calls the church to become partners of peace in a divided world.",
+    href: `${base}/presentations/the-door-of-reconciliation/`,
+    tag: 'Sermon Presentation',
+    meta: 'Standalone slideshow · 19 slides · July 11, 2026',
+  },
+  {
     title: 'Mark 12:18-44 — Debate, Devotion, and True Religion',
     description:
       "A Wednesday Night Prayer Meeting study on Jesus' final temple-court encounters in Holy Week — the Sadducees' resurrection riddle, the great commandment, the Messiah riddle, the warning against false piety, and the widow's offering.",
