@@ -50,8 +50,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // ── RELATED POSTS SELECTION LOGIC ───────────────────
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const postSlug = (p: (typeof allPosts)[number]) => p.id.replace(/\.mdx?$/, '');
 const relatedPosts = allPosts
-  .filter((p) => p.slug !== slug)
+  .filter((p) => postSlug(p) !== slug)
   .map((p) => {
     let score = 0;
     if (category && p.data.category === category) score += 5;
@@ -67,7 +68,7 @@ const relatedPosts = allPosts
   .map((item) => item.post);
 
 const fallbackPosts = allPosts
-  .filter((p) => p.slug !== slug)
+  .filter((p) => postSlug(p) !== slug)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
@@ -192,7 +193,7 @@ const schema = {
           <h3>Related Reflections</h3>
           <div class="related-posts-grid">
             {displayRelated.map((p) => (
-              <a href={`${base}/posts/${p.slug}/`} class="related-post-card">
+              <a href={`${base}/posts/${postSlug(p)}/`} class="related-post-card">
                 <h4>{p.data.title}</h4>
                 <p>{p.data.description}</p>
                 <time datetime={p.data.date.toISOString()}>
