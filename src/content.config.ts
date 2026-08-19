@@ -11,7 +11,7 @@ const posts = defineCollection({
     tags: z.array(z.string()).optional(),
     category: z.string().optional(),
     author: z.string().optional(),
-    image: z.object({ url: z.string(), alt: z.string() }).optional(),
+    image: z.object({ url: z.string(), alt: z.string(), position: z.string().optional() }).optional(),
     draft: z.boolean().optional().default(false),
     audioUrl: z.string().optional(),
     substackUrl: z.string().url().optional(),

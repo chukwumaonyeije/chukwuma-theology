@@ -158,7 +158,7 @@ const schema = {
 
     {image && (
       <div class="post-hero">
-        <img src={image.url} alt={image.alt} />
+        <img src={image.url} alt={image.alt} style={image.position ? { objectPosition: image.position } : undefined} />
       </div>
     )}
 
