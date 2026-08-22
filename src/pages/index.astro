@@ -9,6 +9,14 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const featuredPresentations = [
   {
+    title: 'Which Truth Sets Us Free?',
+    description:
+      "Pastor Kingsley Anonaba's Grace Eternal Prayer Meeting sermon on John 8:31–32 — truth grounded in God's unchanging nature, embodied in Jesus Christ, and made visible through freedom, obedience, integrity, and sanctification.",
+    href: `${base}/presentations/which-truth-sets-us-free/`,
+    tag: 'Sermon Presentation',
+    meta: 'Interactive website · 12 slides · August 22, 2026',
+  },
+  {
     title: 'The Door of Reconciliation',
     description:
       "Pastor Evan Knott's July 11th sermon on the historic 'chancing your arm' story at St. Patrick's Cathedral and Ephesians 2 — how Christ's cross opens the door between enemies and calls the church to become partners of peace in a divided world.",
