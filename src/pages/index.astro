@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import presentationsData from '../data/presentations.json';
 import '../styles/global.css';
 
 const isDev = import.meta.env.DEV;
@@ -7,152 +8,13 @@ const posts = (await getCollection('posts', ({ data }) => isDev || !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const featuredPresentations = [
-  {
-    title: 'Which Truth Sets Us Free?',
-    description:
-      "Pastor Kingsley Anonaba's Grace Eternal Prayer Meeting sermon on John 8:31–32 — truth grounded in God's unchanging nature, embodied in Jesus Christ, and made visible through freedom, obedience, integrity, and sanctification.",
-    href: `${base}/presentations/which-truth-sets-us-free/`,
-    tag: 'Sermon Presentation',
-    meta: 'Interactive website · 12 slides · August 22, 2026',
-  },
-  {
-    title: 'The Door of Reconciliation',
-    description:
-      "Pastor Evan Knott's July 11th sermon on the historic 'chancing your arm' story at St. Patrick's Cathedral and Ephesians 2 — how Christ's cross opens the door between enemies and calls the church to become partners of peace in a divided world.",
-    href: `${base}/presentations/the-door-of-reconciliation/`,
-    tag: 'Sermon Presentation',
-    meta: 'Standalone slideshow · 19 slides · July 11, 2026',
-  },
-  {
-    title: 'The Power That Changed the Universe',
-    description:
-      "A Sabbath School study on First Corinthians — how Paul confronts Corinth's obsession with wealth, rhetoric, and status with a crucified Christ, and why the cross settles the Great Controversy's argument over God's power.",
-    href: `${base}/presentations/the-power-that-changed-the-universe/`,
-    tag: 'Sabbath School Presentation',
-    meta: 'Standalone slideshow · 11 slides · July 11, 2026',
-  },
-  {
-    title: 'Mark 12:18-44 — Debate, Devotion, and True Religion',
-    description:
-      "A Wednesday Night Prayer Meeting study on Jesus' final temple-court encounters in Holy Week — the Sadducees' resurrection riddle, the great commandment, the Messiah riddle, the warning against false piety, and the widow's offering.",
-    href: `${base}/presentations/mark-12-debate-devotion-true-religion/`,
-    tag: 'Prayer Meeting Presentation',
-    meta: 'Standalone slideshow · 10 slides · July 8, 2026',
-  },
-  {
-    title: 'Whose Side Are We On?',
-    description:
-      "Pastor Evan Knott's July 4th sermon on Joshua 5:13-15 — how the Commander of the Lord's Army corrects Joshua's instinct to recruit God into his conflict, and calls every believer to stop asking whether God is on our side and start asking whether we are on His.",
-    href: `${base}/presentations/whose-side-are-we-on/`,
-    tag: 'Sermon Presentation',
-    meta: 'Standalone slideshow · 18 slides · July 4, 2026',
-  },
-  {
-    title: 'The Demas Condition',
-    description:
-      "A sermon presentation by Dr. Chukwuma I. Onyeije, MD, FACOG examining 'The Demas Condition'—a state where outer spiritual indicators appear healthy while the inner heart is drifting away from God.",
-    href: `${base}/presentations/the-demas-condition-sermon/`,
-    tag: 'Sermon Presentation',
-    meta: 'Interactive website · 18 slides · June 2026',
-  },
-  {
-    title: "Under the Broom Tree: Elijah's Depression",
-    description:
-      'A sermon presentation on 1 Kings 19. How God deals gently with the physical exhaustion, mental fatigue, and depression of His prophet Elijah — meeting collapse with care, presence, truth, and a future.',
-    href: `${base}/presentations/under-the-broom-tree/`,
-    tag: 'Sermon Presentation',
-    meta: 'Standalone slideshow · 10 slides · May 2026',
-  },
-  {
-    title: 'Into Eternity',
-    description:
-      'A Sabbath School presentation on the eschatological journey from the struggles of a fallen world to the glorious hope of the New Jerusalem. Covers the core tension of living between two realms, spiritual renewal, the anatomy of Christ\'s return, the Bride of Christ, and the architecture of the New Jerusalem.',
-    href: `${base}/presentations/into-eternity/`,
-    tag: 'Sabbath School Presentation',
-    meta: 'Standalone slideshow · 13 slides · June 22, 2026',
-  },
-  {
-    title: 'Share Him — Growing in a Relationship With God',
-    description:
-      'A Sabbath School presentation for Lesson 12 (Q2 2026) on witnessing as the organic overflow of life with Christ. Covers the Great Commission, compassion-driven outreach, practical tips for sharing Jesus, caring for wandering loved ones, and three key principles of gospel witness.',
-    href: `${base}/presentations/share-him/`,
-    tag: 'Sabbath School Presentation',
-    meta: 'Standalone slideshow · 11 slides · June 19, 2026',
-  },
-  {
-    title: 'Setbacks into Gold',
-    description:
-      'A Sabbath School study on growing through adversity — covering four biblical archetypes (the Sudden Storm, the Chronic Burden, the Inexplicable Loss, and Shattered Expectations) drawn from Romans 5, Mark 4–5, Job, and Luke 24.',
-    href: `${base}/presentations/setbacks-into-gold/`,
-    tag: 'Sabbath School Presentation',
-    meta: 'Standalone slideshow · 14 slides · June 13, 2026',
-  },
-  {
-    title: 'The Crossroads of Destiny',
-    description:
-      'A sermon on discipleship from Luke 5:1-11. Jesus meets us at the crossroads of our lives and calls us to follow Him into deeper waters.',
-    href: `${base}/crossroads-destiny/`,
-    tag: 'Sermon Presentation',
-    meta: 'Interactive website · 18 slides · Audio narration · May 30, 2026',
-  },
-  {
-    title: 'Elements of Biblical Hermeneutics',
-    description:
-      "A standalone elder study on Frank Hasel's Chapter 2 — how Scripture's own self-testimony demands a method open to the supernatural, anchored in the historical-grammatical approach, and accountable to the whole canon.",
-    href: `${base}/presentations/elements-of-biblical-hermeneutics/`,
-    tag: 'Elder Study Presentation',
-    meta: 'Standalone slideshow · 15 slides · May 2026',
-  },
-  {
-    title: 'Biblical Hermeneutics: An Adventist Approach',
-    description:
-      'A standalone study on presuppositions, sola Scriptura, the Holy Spirit, and the disciplined practice of letting Scripture correct the reader.',
-    href: `${base}/presentations/biblical-hermeneutics-an-adventist-approach/`,
-    tag: 'Theology Presentation',
-    meta: 'Standalone slideshow - 18 slides - May 24, 2026',
-  },
-  {
-    title: 'Adults Try, Children Trust',
-    description:
-      "Pastor Evan Knott's first sermon at Atlanta North Seventh-day Adventist Church, calling hearers from anxious striving into the childlike peace of belonging to Christ.",
-    href: `${base}/presentations/adults-try-children-trust/`,
-    tag: 'Sermon Presentation',
-    meta: 'Standalone slideshow · 18 slides · May 16, 2026',
-  },
-  {
-    title: 'The Text and the Canon of Scripture',
-    description:
-      "A standalone elder study on Gerald Klingbeil's chapter about canon, textual transmission, translation, and Scripture's authority under Adventist theology.",
-    href: `${base}/presentations/the-text-and-the-canon-of-scripture/`,
-    tag: 'Elder Study Presentation',
-    meta: 'Standalone slideshow · 20 slides',
-  },
-  {
-    title: 'Revelation and Inspiration',
-    description:
-      "A standalone elder-study presentation on Fernando Canale's doctrine of Scripture and why revelation and inspiration shape every Adventist act of interpretation.",
-    href: `${base}/presentations/revelation-and-inspiration/`,
-    tag: 'Elder Study Presentation',
-    meta: 'Standalone slideshow · 15 slides',
-  },
-  {
-    title: 'Faith, Reason, and the Holy Spirit in Hermeneutics',
-    description:
-      'A standalone elder study on sanctified reason, faithful interpretation, and why the Holy Spirit is indispensable in Adventist hermeneutics.',
-    href: `${base}/presentations/faith-reason-and-the-holy-spirit-in-hermeneutics/`,
-    tag: 'Elder Study Presentation',
-    meta: 'Standalone slideshow · 9 slides',
-  },
-  {
-    title: 'Demas and the Drift',
-    description:
-      'A standalone Atlanta North vespers slideshow exploring how spiritual drift often begins long before collapse becomes visible.',
-    href: `${base}/presentations/demas-and-the-drift-vespers/`,
-    tag: 'Vespers Presentation',
-    meta: 'Standalone slideshow · 30 slides',
-  },
-];
+const featuredPresentations = presentationsData.map((p) => ({
+  title: p.title,
+  description: p.description,
+  href: p.slug === 'crossroads-destiny' ? `${base}/crossroads-destiny/` : `${base}/presentations/${p.slug}/`,
+  tag: p.tag,
+  meta: p.meta,
+}));
 ---
 
 <!doctype html>

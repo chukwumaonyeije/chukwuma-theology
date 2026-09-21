@@ -22,6 +22,7 @@ const getThumbnailStyle = (tag: string) => {
   if (t.includes('sermon')) return 'background: linear-gradient(135deg, var(--secondary) 0%, #8e4c31 100%); color: var(--white);';
   if (t.includes('elder')) return 'background: linear-gradient(135deg, var(--accent) 0%, #b8962d 100%); color: var(--text-dark);';
   if (t.includes('vespers')) return 'background: linear-gradient(135deg, #3a506b 0%, #1c2541 100%); color: var(--white);';
+  if (t.includes('art')) return 'background: linear-gradient(135deg, #241a12 0%, #c8863f 100%); color: #f3e9d2;';
   return 'background: linear-gradient(135deg, #7c8e83 0%, #5d6e64 100%); color: var(--white);'; // default fallback
 };
 
